@@ -4,12 +4,13 @@ training:
   id: techanalysissecmanage
   name: TechAnalysisSecManage
   description: >-
-    Combined training for penetration testing and malware response.
+    Single-module training focused on Subcase 1c malware analysis and cyber threat intelligence
+    (CTI) response workflows.
   modules:
-    - id: security_analysis
-      name: Security Analysis Module
+    - id: subcase_1c_malware_cti
+      name: Subcase 1c Malware & CTI Module
       description: >-
-        Exercises covering the subcase 1c environment.
+        Guided malware analysis and CTI exercises using the Subcase 1c lab assets.
       sandboxes:
         - id: subcase_1c  # see docs/subcase_1c_guide.md for deployment and validation steps
           topology: sandboxes/topology_subcase_1c.yaml
