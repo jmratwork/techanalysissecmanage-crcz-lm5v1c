@@ -12,4 +12,7 @@ training:
       description: >-
         Guided malware analysis and CTI exercises using the Subcase 1c lab assets.
       sandboxes:
-        - definition: sandboxes/Sandbox Agenda/sandbox.yaml
+        - id: subcase_1c
+          definition: sandboxes/Sandbox Agenda/sandbox.yaml
+        - id: sandbox_agenda
+          definition: sandboxes/Sandbox Agenda/sandbox_agenda.yaml
