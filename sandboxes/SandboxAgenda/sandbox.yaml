@@ -1,7 +1,13 @@
 ---
-kypo_sandbox_config_version: 1
+kypo_sandbox_config_version: 2
 sandbox:
-  id: subcase_1c
-  topology: ../../topology.yml
+  @id: "urn:kypo:sandbox:subcase_1c"
+  @type: Sandbox
+  name: "Subcase 1c Sandbox"
+  description: >-
+    Sandbox environment for Subcase 1c malware analysis and CTI workflows.
+  topology:
+    @id: ../../topology.yml
   provisioning:
-    - playbook: site.yml
+    - @id: "urn:kypo:provisioning:subcase_1c:site"
+      playbook: site.yml

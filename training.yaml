@@ -1,18 +1,24 @@
 ---
-kypo_training_config_version: 1
+kypo_training_config_version: 2
 training:
-  id: techanalysissecmanage
+  @id: "urn:kypo:training:techanalysissecmanage"
+  @type: Training
   name: TechAnalysisSecManage
   description: >-
     Single-module training focused on Subcase 1c malware analysis and cyber threat intelligence
     (CTI) response workflows.
   modules:
-    - id: subcase_1c_malware_cti
+    - @id: "urn:kypo:module:subcase_1c_malware_cti"
+      @type: Module
       name: Subcase 1c Malware & CTI Module
       description: >-
         Guided malware analysis and CTI exercises using the Subcase 1c lab assets.
       sandboxes:
-        - id: subcase_1c
+        - @id: "urn:kypo:sandbox:subcase_1c"
+          @type: Sandbox
+          name: "Subcase 1c Sandbox"
           definition: sandboxes/SandboxAgenda/sandbox.yaml
-        - id: sandbox_agenda
+        - @id: "urn:kypo:sandbox:sandbox_agenda"
+          @type: Sandbox
+          name: "Agenda Sandbox"
           definition: sandboxes/SandboxAgenda/sandbox_agenda.yaml
