@@ -10,4 +10,4 @@ sandbox:
     "@id": "urn:kypo:topology:subcase_1c"
   provisioning:
     - "@id": "urn:kypo:provisioning:subcase_1c:site"
-      playbook: site.yml
+      playbook: provisioning/playbook.yml
