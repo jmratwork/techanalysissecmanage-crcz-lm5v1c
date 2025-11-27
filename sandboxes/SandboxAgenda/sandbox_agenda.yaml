@@ -1,7 +1,13 @@
 ---
-kypo_sandbox_config_version: 1
+kypo_sandbox_config_version: 2
 sandbox:
-  id: sandbox_agenda
-  topology: ../../topology.yml
+  @id: "urn:kypo:sandbox:sandbox_agenda"
+  @type: Sandbox
+  name: "Agenda Sandbox"
+  description: >-
+    Minimal sandbox definition for agenda exercises tied to the shared topology.
+  topology:
+    @id: ../../topology.yml
   provisioning:
-    - playbook: site.yml
+    - @id: "urn:kypo:provisioning:sandbox_agenda:site"
+      playbook: site.yml
