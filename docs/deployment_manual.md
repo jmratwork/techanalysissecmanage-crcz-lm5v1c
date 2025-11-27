@@ -44,15 +44,14 @@ For systems without Internet access, pre-download required packages and modules:
 ## Service Orchestration
 
 1. **Provision VMs** – Start VMs from the prepared images or snapshots and verify connectivity.
-2. **Install Python dependencies** – Before running any scenario scripts, install required packages:
+2. **Install Python dependencies** – Before running any scenario scripts, install required packages for Subcase 1c:
    ```bash
-   pip install -r subcase_1b/training_platform/requirements.txt   # for Subcase 1b
-   pip install -r subcase_1c/requirements.txt                     # for Subcase 1c
+   pip install -r subcase_1c/requirements.txt
    ```
    The Subcase 1c requirements include the `yara-python` library to enable
    rule-based malware detection.
 3. **Launch core services**
-   - Start BIPS, NG‑SIEM, CICMS, NG‑SOAR, and related components using the scripts under `subcase_1b/scripts/` or `subcase_1c/scripts/`.
+   - Start BIPS, NG‑SIEM, CICMS, NG‑SOAR, and related components using the scripts under `subcase_1c/scripts/` (for example, `start_soc_services.sh` and `start_cti_component.sh`).
    - If `systemctl` is unavailable, set `DIRECT_START=1` to invoke legacy service scripts.
 4. **Validate operation**
    - Confirm ports are listening and dashboards are reachable.
