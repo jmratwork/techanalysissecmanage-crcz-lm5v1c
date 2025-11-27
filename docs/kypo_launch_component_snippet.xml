@@ -1,0 +1,9 @@
+<!-- Example snippet for embedding the KYPO launch component in Open edX -->
+<vertical display_name="KYPO Lab Example">
+  <html display_name="KYPO Lab Launcher">
+    <![CDATA[
+    <iframe src="http://localhost:5000/kypo_launch_component.html?token={{token}}&lab_id=intro-lab"
+            width="800" height="600" frameborder="0"></iframe>
+    ]]>
+  </html>
+</vertical>

@@ -1,0 +1,127 @@
+---
+version: "1.0"
+name: "subcase_1b"
+description: "Penetration testing training scenario for subcase 1b"
+metadata:
+  author: "TechAnalysisSecManage"
+  category: "training"
+  difficulty: "medium"
+  created: "2024-01-01"
+network:
+  name: "training_net"
+  subnet: "10.10.0.0/24"
+  gateway: "10.10.0.1"
+playbook: "ansible/playbook.yml"
+nodes:
+  training_platform:
+    image: "debian-11"
+    role: "instructor"
+    services:
+      - "Course Management"
+    ip: "10.10.0.2"
+    subnet: "10.10.0.0/24"
+    gateway: "10.10.0.1"
+    startup_scripts:
+      - path: "scripts/training_platform_start.sh"
+        args: "--course pentest-101"
+  trainee_workstation:
+    image: "kali"
+    role: "trainee"
+    ip: "10.10.0.3"
+    subnet: "10.10.0.0/24"
+    gateway: "10.10.0.1"
+    startup_scripts:
+      - path: "scripts/trainee_start.sh"
+        args: "--target 10.10.0.4"
+  cyber_range:
+    image: "metasploitable2"
+    role: "range"
+    services:
+      - "Simulated CYNET Network"
+    ip: "10.10.0.4"
+    subnet: "10.10.0.0/24"
+    gateway: "10.10.0.1"
+    startup_scripts:
+      - path: "scripts/cyber_range_start.sh"
+        args: "--vuln-profile baseline"
+  randomization_platform:
+    image: "debian-11"
+    role: "randomization"
+    services:
+      - "Randomization Evaluation"
+    ip: "10.10.0.5"
+    subnet: "10.10.0.0/24"
+    gateway: "10.10.0.1"
+    startup_scripts:
+      - path: "scripts/randomization_platform_start.sh"
+  bips:
+    image: "debian-11"
+    role: "security"
+    services:
+      - "Behavioral IPS"
+    ip: "10.10.0.6"
+    subnet: "10.10.0.0/24"
+    gateway: "10.10.0.1"
+    startup_scripts:
+      - path: "scripts/bips_start.sh"
+  ng_siem:
+    image: "debian-11"
+    role: "siem"
+    services:
+      - "Next-Gen SIEM"
+    ip: "10.10.0.7"
+    subnet: "10.10.0.0/24"
+    gateway: "10.10.0.1"
+    startup_scripts:
+      - path: "scripts/ng_siem_start.sh"
+  cicms:
+    image: "debian-11"
+    role: "incident_management"
+    services:
+      - "Cyber Incident & Case Management"
+    ip: "10.10.0.8"
+    subnet: "10.10.0.0/24"
+    gateway: "10.10.0.1"
+    startup_scripts:
+      - path: "scripts/cicms_start.sh"
+  ng_soar:
+    image: "debian-11"
+    role: "soc"
+    services:
+      - "Next-Gen SOAR"
+    ip: "10.10.0.9"
+    subnet: "10.10.0.0/24"
+    gateway: "10.10.0.1"
+    startup_scripts:
+      - path: "scripts/ng_soar_start.sh"
+links:
+  - [trainee_workstation, cyber_range]
+  - [trainee_workstation, training_platform]
+  - [cyber_range, randomization_platform]
+  - [randomization_platform, bips]
+  - [bips, ng_siem]
+  - [ng_siem, cicms]
+  - [cicms, ng_soar]
+scenarios:
+  - id: "dvwa_sql_injection"
+    title: "DVWA SQL Injection Lab"
+    description: >
+      Exploit SQL injection vulnerabilities in the DVWA service exposed on
+      port 8000.
+    services:
+      - "vuln_web"
+      - "trainee_workstation"
+  - id: "weak_ssh_credentials"
+    title: "Weak SSH Credentials Lab"
+    description: >
+      Brute-force weak SSH passwords on the trainee workstation container.
+    services:
+      - "trainee_workstation"
+  - id: "buffer_overflow_practice"
+    title: "Buffer Overflow Lab"
+    description: >
+      Develop basic buffer overflow exploits against a vulnerable program
+      provided within the cyber range.
+    services:
+      - "trainee_workstation"
+      - "cyber_range"

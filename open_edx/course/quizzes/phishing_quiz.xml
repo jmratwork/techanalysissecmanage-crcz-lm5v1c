@@ -1,0 +1,82 @@
+<problem>
+  <multiplechoiceresponse>
+    <label>What is the safest response to an unexpected password reset email?</label>
+    <choicegroup type="MultipleChoice">
+      <choice>Click the link and change your password</choice>
+      <choice>Ignore the email</choice>
+      <choice correct="true">Verify the request through an official channel</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <multiplechoiceresponse>
+    <label>Which URL is likely malicious?</label>
+    <choicegroup type="MultipleChoice">
+      <choice>https://accounts.example.com</choice>
+      <choice correct="true">http://login.example.com.security-update.co</choice>
+      <choice>https://intranet.example.com/profile</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <multiplechoiceresponse>
+    <label>Why should you hover over links before clicking?</label>
+    <choicegroup type="MultipleChoice">
+      <choice correct="true">To check the true destination</choice>
+      <choice>To download the attachment</choice>
+      <choice>To enable pop-up blockers</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <multiplechoiceresponse>
+    <label>You receive an email from your bank asking you to update your details via an attached form. What should you do?</label>
+    <choicegroup type="MultipleChoice">
+      <choice>Open the form and fill in your details</choice>
+      <choice correct="true">Contact the bank using an official phone number</choice>
+      <choice>Reply to the email with your information</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <multiplechoiceresponse>
+    <label>Which attachment file type is most likely to contain malware?</label>
+    <choicegroup type="MultipleChoice">
+      <choice>invoice.pdf</choice>
+      <choice correct="true">update.exe</choice>
+      <choice>report.txt</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <multiplechoiceresponse>
+    <label>Which is a sign of a spear phishing attempt?</label>
+    <choicegroup type="MultipleChoice">
+      <choice>A mass email advertising a new product</choice>
+      <choice correct="true">An email referencing a project you are working on</choice>
+      <choice>A system notification from your antivirus software</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <multiplechoiceresponse>
+    <label>You notice a login page uses http instead of https. What should you do?</label>
+    <choicegroup type="MultipleChoice">
+      <choice>Proceed with entering your credentials</choice>
+      <choice correct="true">Close the page and report it to IT</choice>
+      <choice>Ignore the difference and continue</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <multiplechoiceresponse>
+    <label>An email threatens account suspension unless you act immediately. What tactic is the attacker using?</label>
+    <choicegroup type="MultipleChoice">
+      <choice correct="true">Urgency and fear</choice>
+      <choice>Routine company policy</choice>
+      <choice>Technical jargon</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <multiplechoiceresponse>
+    <label>What is the best way to verify a suspicious email from a coworker?</label>
+    <choicegroup type="MultipleChoice">
+      <choice>Reply to the email asking if it's legitimate</choice>
+      <choice correct="true">Call the coworker using a known number</choice>
+      <choice>Forward it to others to ask their opinion</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <multiplechoiceresponse>
+    <label>After clicking on a suspicious link, what should you do first?</label>
+    <choicegroup type="MultipleChoice">
+      <choice>Delete your browsing history</choice>
+      <choice correct="true">Disconnect from the network and inform IT</choice>
+      <choice>Continue working to avoid suspicion</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+</problem>

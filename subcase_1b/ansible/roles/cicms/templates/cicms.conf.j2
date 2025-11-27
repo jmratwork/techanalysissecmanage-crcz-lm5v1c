@@ -1,0 +1,6 @@
+# CICMS configuration
+server:
+  host: {{ cicms_host | default('0.0.0.0') }}
+  port: {{ cicms_port | default(8443) }}
+database:
+  uri: {{ cicms_database_uri | default('sqlite:///var/lib/cicms/db.sqlite') }}

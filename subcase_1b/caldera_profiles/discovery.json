@@ -1,0 +1,6 @@
+{
+    "description": "Profile for discovering hosts in KYPO subnet",
+    "facts": [
+        {"trait": "target.subnet", "value": "KYPO_SUBNET"}
+    ]
+}

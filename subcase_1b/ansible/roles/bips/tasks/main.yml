@@ -1,0 +1,29 @@
+- name: Download BIPS package
+  ansible.builtin.get_url:
+    url: "{{ ngsoar_repo_url }}/bips/bips-agent.deb"
+    dest: "/tmp/bips-agent.deb"
+    mode: "0644"
+    checksum: "{{ bips_agent_checksum }}"
+  become: yes
+
+- name: Install BIPS
+  ansible.builtin.apt:
+    deb: "/tmp/bips-agent.deb"
+    state: present
+  become: yes
+
+- name: Configure BIPS
+  ansible.builtin.template:
+    src: bips.conf.j2
+    dest: /etc/bips/bips.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+
+- name: Enable and start BIPS service
+  ansible.builtin.service:
+    name: bips
+    state: started
+    enabled: yes
+  become: yes

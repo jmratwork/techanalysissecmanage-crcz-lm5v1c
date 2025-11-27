@@ -1,0 +1,22 @@
+---
+- name: Ensure rsyslog is installed
+  package:
+    name: rsyslog
+    state: present
+
+- name: Configure shell history and command logging
+  template:
+    src: command_logging.sh.j2
+    dest: /etc/profile.d/command_logging.sh
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Configure rsyslog for command logging
+  template:
+    src: command_logging.conf.j2
+    dest: /etc/rsyslog.d/command_logging.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart rsyslog

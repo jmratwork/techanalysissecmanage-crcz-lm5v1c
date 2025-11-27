@@ -1,0 +1,4 @@
+---
+# Base URL for NG-SOAR package repository. Override in inventory or group vars.
+ngsoar_repo_url: "https://packages.internal.example.com"
+ng_soar_platform_checksum: "sha256:4c2cdf184931911730af7cb085aaa83ce8b0c88b4b06f33047e561e0449c0afa"

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>KYPO Lab Launcher</title>
+</head>
+<body>
+  <button id="launch-btn">Launch KYPO Lab</button>
+  <script>
+    async function launchLab() {
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get('token');
+      const labId = params.get('lab_id');
+      try {
+        const res = await fetch('/kypo/launch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: token, lab_id: labId })
+        });
+        if (!res.ok) {
+          alert('Lab launch failed');
+          return;
+        }
+        const data = await res.json();
+        if (data.launch_url) {
+          window.location.href = data.launch_url;
+        } else {
+          alert('No launch URL returned');
+        }
+      } catch (err) {
+        alert('Lab launch failed');
+      }
+    }
+
+    document.getElementById('launch-btn').addEventListener('click', launchLab);
+  </script>
+</body>
+</html>

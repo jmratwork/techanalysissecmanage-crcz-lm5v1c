@@ -1,0 +1,10 @@
+# Filebeat configuration
+filebeat.inputs:
+  - type: log
+    paths:
+      - /var/log/*.log
+      - /var/log/commands.log
+# NG-SIEM collector output
+# ng_siem_collector_host and ng_siem_collector_port provide the collector endpoint
+output.ng_siem:
+  hosts: ["{{ ng_siem_collector_host | default('localhost') }}:{{ ng_siem_collector_port | default(5044) }}"]

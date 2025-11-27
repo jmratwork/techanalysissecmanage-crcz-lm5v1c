@@ -1,0 +1,7 @@
+<create_task>
+  <name>KYPO Quick Scan</name>
+  <config id="d21f6c81-2b88-4ac1-b7b4-a2a9f2ad4663"/>
+  <target>
+    <hosts>KYPO_SUBNET</hosts>
+  </target>
+</create_task>

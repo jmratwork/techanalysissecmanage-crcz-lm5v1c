@@ -1,0 +1,4 @@
+# Enable timestamped history and forward every command to syslog
+export HISTTIMEFORMAT="%F %T "
+export PROMPT_COMMAND='history -a'
+trap 'logger -p local6.info -t bash "$USER@$(hostname)[$$]: $BASH_COMMAND"' DEBUG

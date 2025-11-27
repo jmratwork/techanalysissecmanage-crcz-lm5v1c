@@ -1,0 +1,24 @@
+---
+version: '3.8'
+services:
+  training_platform:
+    image: nginx:alpine
+    container_name: training_platform
+    networks:
+      - cyber_range
+  trainee_workstation:
+    image: kalilinux/kali-rolling
+    container_name: trainee_workstation
+    command: ["tail", "-f", "/dev/null"]
+    networks:
+      - cyber_range
+  vuln_web:
+    image: vulnerables/web-owasp-dvwa
+    container_name: vuln_web
+    ports:
+      - "8000:80"
+    networks:
+      - cyber_range
+networks:
+  cyber_range:
+    driver: bridge
