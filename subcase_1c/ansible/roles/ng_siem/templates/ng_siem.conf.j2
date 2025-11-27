@@ -1,0 +1,10 @@
+# NG-SIEM configuration
+inputs:
+  - type: log
+    paths:
+      - /var/log/*.log
+output:
+  host: {{ siem_host | default('localhost') }}
+  port: {{ siem_port | default(9200) }}
+alerts:
+  webhook: http://localhost:8100/alert

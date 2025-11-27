@@ -1,0 +1,10 @@
+{
+  "title": "Automated Incident",
+  "description": "Template for IRIS case created by the IDS ML pipeline.",
+  "signature": "",
+  "src_ip": "",
+  "dest_ip": "",
+  "entry_point": "",
+  "propagation_method": "",
+  "improvements": ""
+}

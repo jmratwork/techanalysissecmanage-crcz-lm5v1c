@@ -1,0 +1,103 @@
+- name: Download BIPS package
+  ansible.builtin.get_url:
+    url: "{{ ngsoar_repo_url }}/bips/bips-agent.deb"
+    dest: "/tmp/bips-agent.deb"
+    mode: "0644"
+    checksum: "{{ bips_agent_checksum }}"
+  become: yes
+
+- name: Install BIPS
+  ansible.builtin.apt:
+    deb: "/tmp/bips-agent.deb"
+    state: present
+  become: yes
+
+- name: Install Suricata IDS
+  ansible.builtin.apt:
+    name: suricata
+    state: present
+  become: yes
+
+- name: Install ML dependencies
+  ansible.builtin.apt:
+    name:
+      - python3-sklearn
+      - python3-requests
+    state: present
+  become: yes
+
+- name: Download Suricata ruleset
+  ansible.builtin.get_url:
+    url: "{{ suricata_rules_url }}"
+    dest: "/tmp/suricata-rules.tar.gz"
+    mode: "0644"
+  become: yes
+
+- name: Extract Suricata rules
+  ansible.builtin.unarchive:
+    src: "/tmp/suricata-rules.tar.gz"
+    dest: "/etc/suricata/rules"
+    remote_src: yes
+  become: yes
+
+- name: Deploy Suricata configuration
+  ansible.builtin.template:
+    src: suricata.yaml.j2
+    dest: /etc/suricata/suricata.yaml
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Enable and start Suricata
+  ansible.builtin.service:
+    name: suricata
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Configure BIPS
+  ansible.builtin.template:
+    src: bips.conf.j2
+    dest: /etc/bips/bips.conf
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Deploy behavioural monitor script
+  ansible.builtin.template:
+    src: bips_suricata_monitor.py.j2
+    dest: /usr/local/bin/bips_suricata_monitor.py
+    owner: root
+    group: root
+    mode: "0755"
+  become: yes
+
+- name: Install systemd unit for behavioural monitor
+  ansible.builtin.template:
+    src: bips-behavior.service.j2
+    dest: /etc/systemd/system/bips-behavior.service
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Reload systemd for BIPS monitor
+  ansible.builtin.systemd:
+    daemon_reload: yes
+  become: yes
+
+- name: Enable and start BIPS behavioural service
+  ansible.builtin.service:
+    name: bips-behavior
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Enable and start BIPS service
+  ansible.builtin.service:
+    name: bips
+    state: started
+    enabled: yes
+  become: yes

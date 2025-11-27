@@ -1,0 +1,38 @@
+- name: Download NG-SOAR package
+  ansible.builtin.get_url:
+    url: "{{ ngsoar_repo_url }}/ng-soar/ng-soar-platform.deb"
+    dest: "/tmp/ng-soar-platform.deb"
+    mode: "0644"
+    checksum: "{{ ng_soar_platform_checksum }}"
+  become: yes
+
+- name: Install NG-SOAR
+  ansible.builtin.apt:
+    deb: "/tmp/ng-soar-platform.deb"
+    state: present
+  become: yes
+
+- name: Configure NG-SOAR
+  ansible.builtin.template:
+    src: ng_soar.conf.j2
+    dest: /etc/ng_soar/config.yml
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Deploy NG-SOAR dashboard
+  ansible.builtin.template:
+    src: ngsoar-dashboard.ndjson.j2
+    dest: /etc/ng_soar/ngsoar-dashboard.ndjson
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Enable and start NG-SOAR service
+  ansible.builtin.service:
+    name: ng-soar
+    state: started
+    enabled: yes
+  become: yes

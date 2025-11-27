@@ -1,0 +1,30 @@
+{
+  "type": "playbook",
+  "spec_version": "cacao-2.0",
+  "id": "playbook--11111111-1111-4111-8111-111111111111",
+  "name": "Incident Response",
+  "description": "Isolate a compromised host to prevent lateral movement.",
+  "playbook_types": ["response"],
+  "workflow": {
+    "start": "block_inbound",
+    "blocks": {
+      "block_inbound": {
+        "type": "action",
+        "description": "Block inbound traffic to the host",
+        "action": {
+          "type": "command",
+          "command": "sudo iptables -A INPUT -s {{host}} -j DROP"
+        },
+        "next": ["disable_iface"]
+      },
+      "disable_iface": {
+        "type": "action",
+        "description": "Disable network interface",
+        "action": {
+          "type": "command",
+          "command": "sudo ip link set eth0 down"
+        }
+      }
+    }
+  }
+}

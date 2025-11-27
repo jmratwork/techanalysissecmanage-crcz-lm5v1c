@@ -1,0 +1,16 @@
+---
+- hosts: soc_server
+  become: true
+  roles:
+    - ng_soar
+    - ng_siem
+    - bips
+    - cicms
+    - decide
+    - act
+
+- hosts: cti_components
+  become: true
+  roles:
+    - misp
+    - ng_siem

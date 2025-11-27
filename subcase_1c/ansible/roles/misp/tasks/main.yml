@@ -1,0 +1,142 @@
+- name: Download MISP package
+  ansible.builtin.get_url:
+    url: "{{ ngsoar_repo_url }}/misp/misp-agent.deb"
+    dest: "/tmp/misp-agent.deb"
+    mode: "0644"
+    checksum: "{{ misp_agent_checksum }}"
+  become: yes
+
+- name: Install MISP
+  ansible.builtin.apt:
+    deb: "/tmp/misp-agent.deb"
+    state: present
+  become: yes
+
+- name: Configure MISP
+  ansible.builtin.template:
+    src: misp.conf.j2
+    dest: /etc/misp/config.yml
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Configure CTI feed URL
+  ansible.builtin.template:
+    src: cti_feed.env.j2
+    dest: /etc/misp/cti_feed.env
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Deploy malware simulation scripts
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "/opt/misp/{{ item.dest }}"
+    owner: root
+    group: root
+    mode: "0755"
+  loop:
+    - src: load_malware_simulation.ps1
+      dest: load_malware_simulation.ps1
+    - src: "{{ playbook_dir }}/../scripts/benign_malware_simulator.ps1"
+      dest: benign_malware_simulator.ps1
+  become: yes
+
+- name: Enable and start MISP service
+  ansible.builtin.service:
+    name: misp
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Install CTI enrichment dependencies
+  ansible.builtin.apt:
+    name:
+      - python3
+      - python3-pip
+      - python3-requests
+      - python3-stix2
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Deploy CTI feed fetcher script
+  ansible.builtin.copy:
+    src: fetch_cti_feed.sh
+    dest: /opt/misp/fetch_cti_feed.sh
+    owner: root
+    group: root
+    mode: "0755"
+  become: yes
+
+- name: Install fetch-cti-feed service
+  ansible.builtin.template:
+    src: fetch-cti-feed.service.j2
+    dest: /etc/systemd/system/fetch-cti-feed.service
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Enable and start fetch-cti-feed service
+  ansible.builtin.service:
+    name: fetch-cti-feed
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  become: yes
+
+# Synchronise with remote MISP and expose webhook for IRIS
+- name: Deploy MISP sync script
+  ansible.builtin.template:
+    src: misp-sync.sh.j2
+    dest: /opt/misp/misp-sync.sh
+    owner: root
+    group: root
+    mode: "0755"
+  become: yes
+
+- name: Install misp-sync service
+  ansible.builtin.template:
+    src: misp-sync.service.j2
+    dest: /etc/systemd/system/misp-sync.service
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Enable and start misp-sync service
+  ansible.builtin.service:
+    name: misp-sync
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  become: yes
+
+- name: Deploy IRIS webhook script
+  ansible.builtin.template:
+    src: iris_webhook.py.j2
+    dest: /opt/misp/iris_webhook.py
+    owner: root
+    group: root
+    mode: "0755"
+  become: yes
+
+- name: Install iris-webhook service
+  ansible.builtin.template:
+    src: iris-webhook.service.j2
+    dest: /etc/systemd/system/iris-webhook.service
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Enable and start iris-webhook service
+  ansible.builtin.service:
+    name: iris-webhook
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  become: yes

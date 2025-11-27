@@ -1,0 +1,11 @@
+[Unit]
+Description=Act mitigation service
+After=network.target decide.service
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/act/act.py
+WorkingDirectory=/opt/act
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

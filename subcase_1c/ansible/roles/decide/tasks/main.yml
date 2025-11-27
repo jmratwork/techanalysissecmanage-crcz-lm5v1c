@@ -1,0 +1,31 @@
+- name: Install Decide service dependencies
+  ansible.builtin.pip:
+    name:
+      - flask
+      - scikit-learn
+  become: yes
+
+- name: Copy Decide service code
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../decide/app.py"
+    dest: /opt/decide/app.py
+    owner: root
+    group: root
+    mode: "0755"
+  become: yes
+
+- name: Copy systemd unit file
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../decide/decide.service"
+    dest: /etc/systemd/system/decide.service
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Enable and start Decide service
+  ansible.builtin.systemd:
+    name: decide
+    state: started
+    enabled: yes
+  become: yes

@@ -1,0 +1,11 @@
+[Unit]
+Description=BIPS behavioural monitor
+After=network.target suricata.service
+Requires=suricata.service
+
+[Service]
+ExecStart=/usr/local/bin/bips_suricata_monitor.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,19 @@
+---
+kypo_training_config_version: 1
+training:
+  id: techanalysissecmanage
+  name: TechAnalysisSecManage
+  description: >-
+    Combined training for penetration testing and malware response.
+  modules:
+    - id: security_analysis
+      name: Security Analysis Module
+      description: >-
+        Exercises covering subcase 1b and subcase 1c environments.
+      sandboxes:
+        - id: subcase_1b
+          topology: sandboxes/topology_subcase_1b.yaml
+          provisioning: sandboxes/provisioning_subcase_1b/site.yml
+        - id: subcase_1c  # see docs/subcase_1c_guide.md for deployment and validation steps
+          topology: sandboxes/topology_subcase_1c.yaml
+          provisioning: sandboxes/provisioning_subcase_1c/site.yml

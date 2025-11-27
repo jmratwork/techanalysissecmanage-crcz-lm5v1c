@@ -1,0 +1,96 @@
+---
+- hosts: bips:ng_siem:cicms:ng_soar
+  become: yes
+  vars:
+    ngsoar_repo_url: "https://ngsoar.example.com/apt"
+  tasks:
+    - name: Add NG-SOAR APT repository
+      apt_repository:
+        repo: "deb [trusted=yes] {{ ngsoar_repo_url }} stable main"
+        state: present
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+- hosts: training_platform
+  become: yes
+  tasks:
+    - name: Install training web server
+      apt:
+        name: nginx
+        state: present
+    - name: Ensure nginx running
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+- hosts: trainee_workstation
+  become: yes
+  tasks:
+    - name: Install pentest tools
+      apt:
+        name:
+          - nmap
+          - gvm
+        state: present
+
+- hosts: cyber_range
+  become: yes
+  tasks:
+    - name: Install DVWA dependencies
+      apt:
+        name:
+          - apache2
+          - mysql-server
+        state: present
+
+- hosts: randomization_platform
+  become: yes
+  tasks:
+    - name: Install randomization utilities
+      apt:
+        name: python3
+        state: present
+
+- hosts: bips
+  become: yes
+  tasks:
+    - name: Install BIPS service
+      apt:
+        name: bips
+        state: present
+
+- hosts: ng_siem
+  become: yes
+  tasks:
+    - name: Install NG SIEM service
+      apt:
+        name: ng-siem
+        state: present
+    - name: Ensure NG SIEM running
+      service:
+        name: ng-siem
+        state: started
+        enabled: yes
+
+- hosts: cicms
+  become: yes
+  tasks:
+    - name: Install CICMS service
+      apt:
+        name: cicms
+        state: present
+
+- hosts: ng_soar
+  become: yes
+  tasks:
+    - name: Install NG SOAR service
+      apt:
+        name: ng-soar
+        state: present
+    - name: Ensure NG SOAR running
+      service:
+        name: ng-soar
+        state: started
+        enabled: yes

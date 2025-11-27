@@ -1,0 +1,19 @@
+# CICMS configuration
+server:
+  host: {{ cicms_host | default('0.0.0.0') }}
+  port: {{ cicms_port | default(8443) }}
+database:
+  uri: {{ cicms_database_uri | default('sqlite:///var/lib/cicms/db.sqlite') }}
+incident_flow:
+  contain:
+    webhooks:
+      - url: "{{ misp_url | default('http://localhost:8443') }}/events/update"
+      - url: "{{ ng_soar_url | default('http://localhost:5900') }}/act"
+  eradicate:
+    webhooks:
+      - url: "{{ misp_url | default('http://localhost:8443') }}/events/update"
+      - url: "{{ ng_soar_url | default('http://localhost:5900') }}/act"
+  recover:
+    webhooks:
+      - url: "{{ misp_url | default('http://localhost:8443') }}/events/update"
+      - url: "{{ ng_soar_url | default('http://localhost:5900') }}/act"

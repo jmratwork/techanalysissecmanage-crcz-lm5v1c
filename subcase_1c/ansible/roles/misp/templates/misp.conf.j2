@@ -1,0 +1,14 @@
+# MISP configuration
+simulation:
+  script: /opt/misp/load_malware_simulation.ps1
+  auto_run: true
+logging:
+  directory: /var/log/misp
+  level: INFO
+
+sync:
+  url: {{ remote_misp_url }}
+  api_key: {{ remote_misp_key }}
+
+webhook:
+  url: {{ iris_webhook_url }}

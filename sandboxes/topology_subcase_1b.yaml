@@ -1,0 +1,103 @@
+---
+name: "subcase_1b_topology"
+description: "Penetration testing environment for subcase 1b"
+hosts:
+  training_platform:
+    image: debian-11
+    flavor: medium
+    interfaces:
+      - network: training_net
+        ip: 10.10.0.2
+    services:
+      - name: ssh
+        port: 22
+      - name: course_web
+        port: 80
+  trainee_workstation:
+    image: kali
+    flavor: small
+    interfaces:
+      - network: training_net
+        ip: 10.10.0.3
+    services:
+      - name: ssh
+        port: 22
+  cyber_range:
+    image: debian-11
+    flavor: medium
+    interfaces:
+      - network: training_net
+        ip: 10.10.0.4
+    services:
+      - name: ssh
+        port: 22
+      - name: dvwa
+        port: 8000
+  randomization_platform:
+    image: debian-11
+    flavor: medium
+    interfaces:
+      - network: training_net
+        ip: 10.10.0.5
+    services:
+      - name: ssh
+        port: 22
+      - name: randomization_eval
+        port: 8500
+  bips:
+    image: debian-11
+    flavor: medium
+    interfaces:
+      - network: training_net
+        ip: 10.10.0.6
+    services:
+      - name: ssh
+        port: 22
+      - name: bips
+        port: 8600
+  ng_siem:
+    image: debian-11
+    flavor: medium
+    interfaces:
+      - network: training_net
+        ip: 10.10.0.7
+    services:
+      - name: ssh
+        port: 22
+      - name: siem
+        port: 8700
+  cicms:
+    image: debian-11
+    flavor: medium
+    interfaces:
+      - network: training_net
+        ip: 10.10.0.8
+    services:
+      - name: ssh
+        port: 22
+      - name: incident_mgmt
+        port: 8800
+  ng_soar:
+    image: debian-11
+    flavor: medium
+    interfaces:
+      - network: training_net
+        ip: 10.10.0.9
+    services:
+      - name: ssh
+        port: 22
+      - name: soar
+        port: 8900
+routers:
+  router:
+    interfaces:
+      - network: training_net
+        ip: 10.10.0.1
+networks:
+  training_net:
+    prefix: 10.10.0.0/24
+base_box:
+  image: debian-11
+  users:
+    - username: kypo
+      password: kypo

@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+from http.server import BaseHTTPRequestHandler, HTTPServer
+import requests
+
+IRIS_URL = "{{ iris_webhook_url }}"
+PORT = {{ misp_webhook_port }}
+
+class Handler(BaseHTTPRequestHandler):
+    def do_POST(self):
+        length = int(self.headers.get('Content-Length', 0))
+        data = self.rfile.read(length)
+        try:
+            requests.post(IRIS_URL, data=data, timeout=5)
+            self.send_response(200)
+        except Exception:  # noqa: BLE001
+            self.send_response(500)
+        self.end_headers()
+
+if __name__ == "__main__":
+    HTTPServer(("", PORT), Handler).serve_forever()

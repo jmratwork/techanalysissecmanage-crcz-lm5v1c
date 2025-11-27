@@ -1,0 +1,10 @@
+[Unit]
+Description=Forward MISP webhook data to IRIS
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/misp/iris_webhook.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

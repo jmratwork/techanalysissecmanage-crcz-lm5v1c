@@ -1,0 +1,29 @@
+- name: Download CICMS package
+  ansible.builtin.get_url:
+    url: "{{ ngsoar_repo_url }}/cicms/cicms-server.deb"
+    dest: "/tmp/cicms-server.deb"
+    mode: "0644"
+    checksum: "{{ cicms_server_checksum }}"
+  become: yes
+
+- name: Install CICMS
+  ansible.builtin.apt:
+    deb: "/tmp/cicms-server.deb"
+    state: present
+  become: yes
+
+- name: Configure CICMS
+  ansible.builtin.template:
+    src: cicms.conf.j2
+    dest: /etc/cicms/config.yml
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Enable and start CICMS service
+  ansible.builtin.service:
+    name: cicms
+    state: started
+    enabled: yes
+  become: yes

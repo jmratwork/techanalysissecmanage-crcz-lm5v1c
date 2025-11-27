@@ -1,0 +1,31 @@
+- name: Install Act service dependencies
+  ansible.builtin.pip:
+    name:
+      - flask
+      - requests
+  become: yes
+
+- name: Copy Act service code
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../act/act.py"
+    dest: /opt/act/act.py
+    owner: root
+    group: root
+    mode: "0755"
+  become: yes
+
+- name: Copy systemd unit file
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../act/act.service"
+    dest: /etc/systemd/system/act.service
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Enable and start Act service
+  ansible.builtin.systemd:
+    name: act
+    state: started
+    enabled: yes
+  become: yes

@@ -1,0 +1,134 @@
+- name: Deploy ELK docker-compose file
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: /etc/ng_siem/docker-compose.yml
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Deploy default Kibana dashboard
+  ansible.builtin.template:
+    src: kibana-dashboard.ndjson.j2
+    dest: /etc/ng_siem/default-dashboard.ndjson
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Deploy Elasticsearch index template
+  ansible.builtin.template:
+    src: index-template.json.j2
+    dest: /etc/ng_siem/index-template.json
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Configure Filebeat
+  ansible.builtin.template:
+    src: filebeat.yml.j2
+    dest: /etc/ng_siem/filebeat.yml
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Ensure BIPS log directory exists
+  ansible.builtin.file:
+    path: /var/log/bips
+    state: directory
+    mode: "0755"
+  become: yes
+
+- name: Enable BIPS log input for Filebeat
+  ansible.builtin.blockinfile:
+    path: /etc/ng_siem/filebeat.yml
+    marker: "# {mark} ANSIBLE MANAGED BLOCK BIPS"
+    insertafter: '^filebeat.inputs:'
+    block: |2
+      - type: log
+        paths:
+          - /var/log/bips/alerts.json
+        fields:
+          log_type: bips
+        json.keys_under_root: true
+        json.add_error_key: true
+  become: yes
+
+- name: Restart Filebeat
+  ansible.builtin.service:
+    name: filebeat
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: Configure Winlogbeat
+  ansible.builtin.template:
+    src: winlogbeat.yml.j2
+    dest: /etc/ng_siem/winlogbeat.yml
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Launch ELK stack
+  ansible.builtin.command:
+    cmd: docker compose -f /etc/ng_siem/docker-compose.yml up -d
+  args:
+    chdir: /etc/ng_siem
+  become: yes
+
+- name: Deploy anomaly detection rules
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../ng_siem/rules/anomaly_rules.ndjson"
+    dest: /etc/ng_siem/anomaly_rules.ndjson
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Deploy correlation detection rules
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../ng_siem/rules/correlation_rules.ndjson"
+    dest: /etc/ng_siem/correlation_rules.ndjson
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes
+
+- name: Import anomaly detection rules into Kibana
+  ansible.builtin.command:
+    cmd: >-
+      curl -s -X POST -H 'kbn-xsrf: true' -F
+      file=@/etc/ng_siem/anomaly_rules.ndjson
+      http://localhost:5601/api/detection_engine/rules/_import?overwrite=true
+  register: import_rules
+  retries: 5
+  delay: 15
+  until: import_rules.rc == 0
+  become: yes
+
+- name: Import correlation detection rules into Kibana
+  ansible.builtin.command:
+    cmd: >-
+      curl -s -X POST -H 'kbn-xsrf: true' -F
+      file=@/etc/ng_siem/correlation_rules.ndjson
+      http://localhost:5601/api/detection_engine/rules/_import?overwrite=true
+  register: import_corr_rules
+  retries: 5
+  delay: 15
+  until: import_corr_rules.rc == 0
+  become: yes
+
+- name: Import default Kibana dashboard
+  ansible.builtin.command:
+    cmd: >-
+      curl -s -X POST -H 'kbn-xsrf: true' -F
+      file=@/etc/ng_siem/default-dashboard.ndjson
+      http://localhost:5601/api/saved_objects/_import?overwrite=true
+  register: import_dashboard
+  retries: 5
+  delay: 15
+  until: import_dashboard.rc == 0
+  become: yes

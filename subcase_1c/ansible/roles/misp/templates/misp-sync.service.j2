@@ -1,0 +1,11 @@
+[Unit]
+Description=MISP remote sync service
+
+[Service]
+Type=simple
+Environment="MISP_REMOTE_URL={{ remote_misp_url }}" "MISP_REMOTE_KEY={{ remote_misp_key }}"
+ExecStart=/opt/misp/misp-sync.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

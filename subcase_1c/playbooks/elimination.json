@@ -1,0 +1,30 @@
+{
+  "type": "playbook",
+  "spec_version": "cacao-2.0",
+  "id": "playbook--22222222-2222-4222-8222-222222222222",
+  "name": "Threat Elimination",
+  "description": "Remove malicious artifacts from an infected host.",
+  "playbook_types": ["elimination"],
+  "workflow": {
+    "start": "av_scan",
+    "blocks": {
+      "av_scan": {
+        "type": "action",
+        "description": "Run antivirus scan",
+        "action": {
+          "type": "command",
+          "command": "ssh {{host}} 'sudo clamscan -r /'"
+        },
+        "next": ["clean_quarantine"]
+      },
+      "clean_quarantine": {
+        "type": "action",
+        "description": "Delete quarantined files",
+        "action": {
+          "type": "command",
+          "command": "ssh {{host}} 'sudo rm -rf /quarantine/*'"
+        }
+      }
+    }
+  }
+}

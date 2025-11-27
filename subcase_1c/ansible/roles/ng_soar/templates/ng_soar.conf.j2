@@ -1,0 +1,5 @@
+# NG-SOAR configuration
+dashboard: /etc/ng_soar/ngsoar-dashboard.ndjson
+api:
+  endpoint: {{ soc_api_endpoint | default('https://soc.internal.local') }}
+  token: {{ soc_api_token | default(lookup('env','SOC_API_TOKEN')) }}

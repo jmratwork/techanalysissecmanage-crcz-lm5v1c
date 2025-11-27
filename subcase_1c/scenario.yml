@@ -1,0 +1,70 @@
+---
+version: "1.0"
+name: "subcase_1c"
+description: "Scenario for subcase 1c"
+metadata:
+  author: "TechAnalysisSecManage"
+  category: "training"
+  difficulty: "medium"
+  created: "2024-01-01"
+network:
+  name: "malnet"
+  subnet: "10.20.0.0/24"
+  gateway: "10.20.0.1"
+playbook: "ansible/playbook.yml"
+nodes:
+  infected_host:
+    image: "kali"
+    role: "victim"
+    ip: "10.20.0.2"
+    subnet: "10.20.0.0/24"
+    gateway: "10.20.0.1"
+    startup_scripts:
+      - path: "scripts/load_malware_simulation.ps1"
+        args: "-ExecutionPolicy Bypass"
+  c2_server:
+    image: "debian-11"
+    role: "c2"
+    ip: "10.20.0.3"
+    subnet: "10.20.0.0/24"
+    gateway: "10.20.0.1"
+    startup_scripts:
+      - path: "scripts/start_c2_server.sh"
+        args: "--config /etc/c2.conf"
+  soc_server:
+    image: "debian-11"
+    role: "soc"
+    services:
+      - "NG-SOAR"
+      - "NG-SIEM"
+      - "BIPS"
+      - "CICMS"
+    ip: "10.20.0.4"
+    subnet: "10.20.0.0/24"
+    gateway: "10.20.0.1"
+    startup_scripts:
+      - path: "scripts/start_soc_services.sh"
+      - path: "scripts/bips_start.sh"
+  cti_component:
+    image: "debian-11"
+    role: "cti"
+    services:
+      - "MISP"
+      - "NG-SIEM"
+    ip: "10.20.0.5"
+    subnet: "10.20.0.0/24"
+    gateway: "10.20.0.1"
+    startup_scripts:
+      - path: "scripts/start_cti_component.sh"
+        args: "--sync"
+links:
+  - [infected_host, c2_server]
+  - [infected_host, soc_server]
+  - [soc_server, cti_component]
+alerts:
+  - source: malware_detection
+    notify: email
+    description: "Notify SOC when malware is detected"
+  - source: bips
+    notify: syslog
+    description: "Notify SOC on intrusion detection"

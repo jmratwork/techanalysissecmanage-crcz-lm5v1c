@@ -1,0 +1,30 @@
+{
+  "type": "playbook",
+  "spec_version": "cacao-2.0",
+  "id": "playbook--33333333-3333-4333-8333-333333333333",
+  "name": "Service Recovery",
+  "description": "Restore normal operations after threat elimination.",
+  "playbook_types": ["recovery"],
+  "workflow": {
+    "start": "enable_iface",
+    "blocks": {
+      "enable_iface": {
+        "type": "action",
+        "description": "Re-enable network interface",
+        "action": {
+          "type": "command",
+          "command": "ssh {{host}} 'sudo ip link set eth0 up'"
+        },
+        "next": ["verify_services"]
+      },
+      "verify_services": {
+        "type": "action",
+        "description": "Verify critical services",
+        "action": {
+          "type": "command",
+          "command": "ssh {{host}} 'systemctl status critical.service'"
+        }
+      }
+    }
+  }
+}

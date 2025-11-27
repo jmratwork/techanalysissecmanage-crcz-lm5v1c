@@ -1,0 +1,10 @@
+---
+# Base URL for NG-SOAR package repository. Override in inventory or group vars.
+ngsoar_repo_url: "https://packages.internal.example.com"
+misp_agent_checksum: "sha256:880dab7c445872663d4dd4326bf6b0c49337b467ae03247c092cdf052116fdaa"
+
+# Remote MISP synchronisation settings and IRIS webhook endpoint
+remote_misp_url: "https://misp.remote.local"
+remote_misp_key: "changeme"
+iris_webhook_url: "http://localhost:5800/iocs"
+misp_webhook_port: 9000
