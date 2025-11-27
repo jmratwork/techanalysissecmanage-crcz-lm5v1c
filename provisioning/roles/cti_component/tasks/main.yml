@@ -1,0 +1,5 @@
+---
+- name: Install CTI platform
+  apt:
+    name: misp
+    state: present

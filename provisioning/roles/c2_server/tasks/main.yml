@@ -1,0 +1,5 @@
+---
+- name: Install C2 framework
+  apt:
+    name: c2-framework
+    state: present
