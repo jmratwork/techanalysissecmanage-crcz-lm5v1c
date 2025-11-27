@@ -1,0 +1,11 @@
+---
+- name: Install SOC service
+  apt:
+    name: soc-platform
+    state: present
+
+- name: Start SOC service
+  service:
+    name: soc-platform
+    state: started
+    enabled: yes

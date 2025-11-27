@@ -1,0 +1,7 @@
+---
+- name: Install investigation tools
+  apt:
+    name:
+      - tcpdump
+      - powershell
+    state: present
