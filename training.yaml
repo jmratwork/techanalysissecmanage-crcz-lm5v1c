@@ -12,6 +12,4 @@ training:
       description: >-
         Guided malware analysis and CTI exercises using the Subcase 1c lab assets.
       sandboxes:
-        - id: subcase_1c  # see docs/subcase_1c_guide.md for deployment and validation steps
-          topology: topology.yml
-          provisioning: sandboxes/provisioning_subcase_1c/site.yml
+        - definition: sandboxes/Sandbox Agenda/sandbox.yaml

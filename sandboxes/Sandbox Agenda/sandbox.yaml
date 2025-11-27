@@ -1,0 +1,7 @@
+---
+kypo_sandbox_config_version: 1
+sandbox:
+  id: subcase_1c
+  topology: ../../topology.yml
+  provisioning:
+    playbook: site.yml
