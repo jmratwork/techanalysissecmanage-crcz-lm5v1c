@@ -8,6 +8,7 @@ sandbox:
     Minimal sandbox definition for agenda exercises tied to the shared topology.
   topology:
     "@id": "urn:kypo:topology:subcase_1c"
+    definition: ../../topology.yml
   provisioning:
     - "@id": "urn:kypo:provisioning:sandbox_agenda:site"
       playbook: provisioning/playbook.yml
