@@ -1,6 +1,6 @@
 # CYNET Topology Overview
 
-## Subcase 1b
+## Subcase 1b (Archived)
 - Network segment `training_net` (10.10.0.0/24)
 - Virtual machines:
   - **training_platform** – Debian 11
@@ -11,6 +11,8 @@
   - **ng_siem** – Debian 11
   - **cicms** – Debian 11
   - **ng_soar** – Debian 11
+
+> The Subcase 1b topology is retained only in the archived folder at `legacy/sandboxes/topology_subcase_1b.yaml` and should not be used for active deployments.
 
 ## Subcase 1c
 - Network segment `malnet` (10.20.0.0/24)

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Create an Open edX cohort, generate invite codes, and register participants with KYPO.
-# Usage: subcase_1b/scripts/enrol_instructor.sh COURSE_ID email1 [email2 ...]
+# Usage: legacy/subcase_1b/scripts/enrol_instructor.sh COURSE_ID email1 [email2 ...]
 # Required environment variables:
 #   OPENEDX_TOKEN            - Token with permissions to manage cohorts in Open edX.
 #   TRAINING_PLATFORM_USER   - Username of the instructor account in the training platform.
@@ -34,7 +34,7 @@ shift
 
 # Obtain a token from the training platform for inviting instructors
 invites_token=$(TRAINING_PLATFORM_URL="${INVITES_API}" \
-  python subcase_1b/training_platform/cli.py login \
+  python legacy/subcase_1b/training_platform/cli.py login \
     --username "${TRAINING_PLATFORM_USER}" \
     --password "${TRAINING_PLATFORM_PASS}" | tr -d '\r\n')
 

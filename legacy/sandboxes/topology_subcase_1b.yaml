@@ -1,4 +1,5 @@
 ---
+# Archived topology retained for historical reference only. Do not deploy to active ranges.
 name: "subcase_1b_topology"
 description: "Penetration testing environment for subcase 1b"
 hosts:
