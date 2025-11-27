@@ -1,6 +1,6 @@
 # TechAnalysisSecManage CRCZ
 
-This repository provides complete, ready‑to‑deploy instructions for double CyberRangeCZ scenarios using only the NG‑SOC components from the activity diagram: BIPS, NG‑SIEM, NG‑SOAR, CICMS, etc. It includes file layouts, Ansible roles, and step‑by‑step workflows so instructors and trainees can complete the training without confusion. One scenario delivers penetration testing and vulnerability assessment training through a dedicated platform and Cyber Range simulation, while the other models malware simulation and CTI integration. This repository contains materials for deploying and managing security analysis exercises on CyberRangeCZ using this platform.
+This repository provides complete, ready‑to‑deploy instructions for the CyberRangeCZ malware simulation and CTI integration scenario (Subcase 1c) using only the NG‑SOC components from the activity diagram: BIPS, NG‑SIEM, NG‑SOAR, CICMS, etc. It includes file layouts, Ansible roles, and step‑by‑step workflows so instructors and trainees can complete the training without confusion. The materials focus on malware execution, detection, response, and threat‑intelligence sharing across NG‑SIEM, NG‑SOAR, and MISP.
 
 ## Prerequisites
 
@@ -26,36 +26,13 @@ See [deployment manual](docs/deployment_manual.md) for detailed steps including 
 4. **Launch the Scenario** – Use the CRCZ interface to create a new exercise and point it to this repository. Configure network ranges and participants as needed.
 5. **Monitor the Exercise** – During execution, analysts should track alerts and manage cases using NG-SOC components such as BIPS, NG-SIEM, CICMS, and MISP (for CTI sharing), following the workflow described in [`docs/training_workflows.md`](docs/training_workflows.md) and the deployment/validation steps in [`docs/subcase_1c_guide.md`](docs/subcase_1c_guide.md).
 
-### Phishing Quiz Module
+### Malware Simulation and CTI Flow
 
-Running `subcase_1b/scripts/training_platform_start.sh` launches a training platform that now includes a phishing-awareness quiz. Set the `PASSWORD` environment variable to a strong value before starting the service. Once the service is up, the following endpoints can be used to interact with the quiz:
+Subcase 1c focuses on simulating malware behavior and enriching alerts with CTI. The workload includes a benign malware simulator, a command-and-control stub, and MISP for sharing indicators. Walkthroughs for starting the simulator, ingesting observables into NG‑SIEM, and pushing IOCs to MISP are outlined in [`docs/subcase_1c_guide.md`](docs/subcase_1c_guide.md). Use that guide to:
 
-- `GET /quiz/start` – obtain questions.
-- `POST /quiz/submit` – send answers and record the score.
-- `GET /quiz/score` – retrieve stored scores per user and course.
-
-See [`docs/subcase_1b_guide.md`](docs/subcase_1b_guide.md) for detailed examples.
-
-### Tool Launch Endpoint
-
-The training platform also provides a `POST /launch_tool` route to run
-predefined **Nmap**, **ZAP**, or **Caldera** operations against the KYPO
-subnet. Supply the authentication `token` and desired `tool` in the JSON
-body to start a job. The response returns a `job_id` and initial
-`status`. Poll `GET /launch_tool/<job_id>?token=...` to obtain the latest
-status and command output, allowing the UI to show progress or completion
-to the trainee.
-
-### Importing Open edX Content
-
-Sample lessons and a quiz are provided under `open_edx/course`. To load this material into Open edX Studio:
-
-1. Archive the directory:
-   ```bash
-   zip -r phishing_course.zip open_edx/course
-   ```
-2. In Studio, open the target course and navigate to **Tools → Import**.
-3. Upload `phishing_course.zip` to add the lessons and quiz.
+- Run `subcase_1c/scripts/benign_malware_simulator.ps1` on the trainee workstation to generate process, network, and file events.
+- Trigger NG‑SOAR playbooks that tag matching alerts with MISP event IDs.
+- Validate containment by executing the cleanup actions described in the guide and confirming the updated threat intelligence entries.
 
 ### IRIS Case Closure Automation
 
@@ -96,8 +73,6 @@ Additional theoretical background and workflow guidance can be found in [`docs/t
 
 ![Pilot CYNET](PUC%20-%20CYNET.png)
 
-- [Subcase 1b – Penetration Testing Training](docs/subcase_1b_guide.md)
-Subcase 1b delivers self-paced penetration testing and vulnerability assessment training using a dedicated training platform, a trainee workstation, and a Cyber Range simulation of CYNET's network.
 - [Subcase 1c – Malware Simulation and CTI Integration](docs/subcase_1c_guide.md)
 Subcase 1c models a malware incident response exercise, adding a C2 server, a CTI component running MISP, and corresponding services for NG‑SIEM, BIPS, CICMS, and NG‑SOAR. The guide covers deployment, attack simulation, validation, and configuration of detection rules and playbooks.
 
