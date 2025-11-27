@@ -4,4 +4,4 @@ sandbox:
   id: sandbox_agenda
   topology: ../../topology.yml
   provisioning:
-    playbook: site.yml
+    - playbook: site.yml
