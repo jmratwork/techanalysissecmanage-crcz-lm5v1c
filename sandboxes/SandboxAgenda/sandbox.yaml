@@ -4,4 +4,4 @@ sandbox:
   id: subcase_1c
   topology: ../../topology.yml
   provisioning:
-    playbook: site.yml
+    - playbook: site.yml
