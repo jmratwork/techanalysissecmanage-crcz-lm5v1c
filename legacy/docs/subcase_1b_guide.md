@@ -1,6 +1,8 @@
 # Subcase 1b Guide: Penetration Testing and Vulnerability Assessment
 
-See [deployment manual](deployment_manual.md) for baseline environment setup and teardown steps before running this scenario. Ensure required environment variables are configured as outlined in [env_variables.md](env_variables.md) before executing scripts.
+> **Archived:** Subcase 1b is out of scope for current training packages. Assets remain available under `legacy/subcase_1b/` for historical reference only and are not maintained. Do not deploy this scenario in active environments.
+
+See [deployment manual](../../docs/deployment_manual.md) for baseline environment setup and teardown steps before running this scenario. Ensure required environment variables are configured as outlined in [env_variables.md](../../docs/env_variables.md) before executing scripts.
 
 ## Objective
 Provide self-paced training on penetration testing and vulnerability assessments. The Training Instructor creates courses and configures Cyber Range scenarios simulating CYNET's network infrastructure. Trainees run semi-automated penetration tests to locate potential vulnerabilities and attack entry points.
@@ -24,27 +26,27 @@ flowchart TD
 
 1. **Install dependencies**
    ```bash
-   pip install -r subcase_1b/training_platform/requirements.txt
+   pip install -r legacy/subcase_1b/training_platform/requirements.txt
    ```
 2. **Create the Course**
    ```bash
    export INSTRUCTOR_PASSWORD='S3cureP@ss'
-   sudo PASSWORD="$INSTRUCTOR_PASSWORD" COURSE_NAME=pentest-101 subcase_1b/scripts/training_platform_start.sh
+   sudo PASSWORD="$INSTRUCTOR_PASSWORD" COURSE_NAME=pentest-101 legacy/subcase_1b/scripts/training_platform_start.sh
    ```
    Starts the Flask service, registers the instructor, and creates the course via the REST API. The script
    refuses to run if `PASSWORD` remains at the insecure default value.
 
    To invite a learner:
    ```bash
-   TOKEN=$(python subcase_1b/training_platform/cli.py login --username instructor --password "$INSTRUCTOR_PASSWORD")
-   COURSE_ID=$(python subcase_1b/training_platform/cli.py list-courses --token "$TOKEN" | python -c 'import sys,json; d=json.load(sys.stdin); print(next(iter(d.keys())))')
-   python subcase_1b/training_platform/cli.py invite --token "$TOKEN" --course-id "$COURSE_ID" --email learner@example.com
+   TOKEN=$(python legacy/subcase_1b/training_platform/cli.py login --username instructor --password "$INSTRUCTOR_PASSWORD")
+   COURSE_ID=$(python legacy/subcase_1b/training_platform/cli.py list-courses --token "$TOKEN" | python -c 'import sys,json; d=json.load(sys.stdin); print(next(iter(d.keys())))')
+   python legacy/subcase_1b/training_platform/cli.py invite --token "$TOKEN" --course-id "$COURSE_ID" --email learner@example.com
    ```
    Set `TRAINING_PLATFORM_URL` if the service runs on a host other than `localhost`.
 3. **Enroll instructors and manage invitations**
    ```bash
    OPENEDX_TOKEN=<api-token> \
-   subcase_1b/scripts/enrol_instructor.sh course-v1:Org+Code+Run instructor@example.com
+   legacy/subcase_1b/scripts/enrol_instructor.sh course-v1:Org+Code+Run instructor@example.com
    ```
    Creates an "instructors" cohort in Open edX, generates invitation codes via
    the `/invites` endpoint, prints the codes to stdout, and registers the
@@ -55,30 +57,30 @@ flowchart TD
 5. **Start the Cyber Range and Security Pipeline**
    - Cyber Range
      ```bash
-     sudo subcase_1b/scripts/cyber_range_start.sh
+     sudo legacy/subcase_1b/scripts/cyber_range_start.sh
      ```
      Initializes the simulated CYNET network environment.
    - Randomization Evaluation Platform
      ```bash
-     sudo subcase_1b/scripts/randomization_platform_start.sh
+     sudo legacy/subcase_1b/scripts/randomization_platform_start.sh
      ```
    - BIPS
      ```bash
-     sudo subcase_1b/scripts/bips_start.sh
+     sudo legacy/subcase_1b/scripts/bips_start.sh
      ```
    - NG-SIEM and attachment processing
      ```bash
-     sudo subcase_1b/scripts/ng_siem_start.sh
+     sudo legacy/subcase_1b/scripts/ng_siem_start.sh
      ```
      Starts an ingestion service for trainee scan results, registers any attachments,
      executes the CA/CND Playbook through the CA Module for Integration, and stores results in MongoDB.
    - CICMS
      ```bash
-     sudo subcase_1b/scripts/cicms_start.sh
+     sudo legacy/subcase_1b/scripts/cicms_start.sh
      ```
    - NG-SOAR
      ```bash
-     sudo subcase_1b/scripts/ng_soar_start.sh
+     sudo legacy/subcase_1b/scripts/ng_soar_start.sh
      ```
    - Analysts monitoring these services can follow the [SOC Analyst Playbook](soc_analyst_playbook.md) for dashboard navigation, search queries, and alert confirmation criteria.
 6. **Evaluation**
@@ -91,7 +93,7 @@ flowchart TD
 1. Log in to the trainee workstation and retrieve course material from the training platform.
 2. Run the lab runner script.
    ```bash
-   sudo subcase_1b/scripts/lab_runner.sh --target 10.10.0.4
+   sudo legacy/subcase_1b/scripts/lab_runner.sh --target 10.10.0.4
    ```
    The script sequentially executes the approved tool profiles and produces expected deliverables:
    - `nmap` reconnaissance sweep – provides a list of reachable hosts and detected services.
@@ -112,7 +114,7 @@ The log file consolidates results for instructor review.
 
 ### Customizing scan artifacts
 
-The lab runner and training platform reference configurable templates located in `subcase_1b/`:
+The lab runner and training platform reference configurable templates located in `legacy/subcase_1b/`:
 
 - `caldera_profiles/discovery.json`
 - `zap_baseline.conf`
@@ -288,7 +290,9 @@ performance and adjust grading policies as needed.
 - Trainee scan results at `/var/log/trainee/scans.log` and progress stored in the training platform.
 - Scan documents stored in MongoDB collection `scans` for later analysis.
 
-## References
+## References (Archived Assets)
+
+> These links point to archived scripts preserved under `legacy/subcase_1b/` and are provided for historical traceability only.
 
 - [`training_platform_start.sh`](../subcase_1b/scripts/training_platform_start.sh)
 - [`trainee_start.sh`](../subcase_1b/scripts/trainee_start.sh)

@@ -76,6 +76,8 @@ Additional theoretical background and workflow guidance can be found in [`docs/t
 - [Subcase 1c – Malware Simulation and CTI Integration](docs/subcase_1c_guide.md)
 Subcase 1c models a malware incident response exercise, adding a C2 server, a CTI component running MISP, and corresponding services for NG‑SIEM, BIPS, CICMS, and NG‑SOAR. The guide covers deployment, attack simulation, validation, and configuration of detection rules and playbooks.
 
+> **Note:** Subcase 1b penetration-testing materials have been archived under `legacy/` and are out of scope for current deployments. Refer to `legacy/README.md` for details.
+
 ## CRCZ/KYPO Training Packaging
 
 After adding or modifying sandbox definitions, you can validate and publish the training module using the `kypo` CLI:

@@ -1,4 +1,6 @@
-# Provisioning Subcase 1b Packages
+# Provisioning Subcase 1b Packages (Archived)
+
+> **Archived:** Provisioning assets for Subcase 1b are retained here for reference only and are not part of the active training deliverables. Do not publish these packages to current ranges.
 
 This directory contains example automation for provisioning the subcase 1b sandbox. The NG-SOC
 components are distributed through a private APT repository. Each host installs the required
