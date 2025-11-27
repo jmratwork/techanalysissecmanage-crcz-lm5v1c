@@ -8,6 +8,7 @@ sandbox:
     Sandbox environment for Subcase 1c malware analysis and CTI workflows.
   topology:
     "@id": "urn:kypo:topology:subcase_1c"
+    definition: ../../topology.yml
   provisioning:
     - "@id": "urn:kypo:provisioning:subcase_1c:site"
       playbook: provisioning/playbook.yml
