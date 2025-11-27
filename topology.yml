@@ -1,6 +1,5 @@
 ---
 name: "subcase-1c-topology"
-description: "Malware simulation environment for subcase 1c"
 hosts:
   infected_host:
     image: kali
@@ -34,8 +33,3 @@ routers:
 networks:
   malnet:
     prefix: 10.20.0.0/24
-base_box:
-  image: debian-11
-  users:
-    - username: kypo
-      password: kypo
