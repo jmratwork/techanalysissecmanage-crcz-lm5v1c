@@ -1,5 +1,5 @@
 ---
-name: "subcase_1c_topology"
+name: "subcase-1c-topology"
 description: "Malware simulation environment for subcase 1c"
 hosts:
   infected_host:
