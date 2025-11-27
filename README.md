@@ -84,6 +84,13 @@ After adding or modifying sandbox definitions, you can validate and publish the 
 
 - **Import note:** When uploading sandboxes to the platform, use the Raw links (or local copies from this repo) for `sandboxes/SandboxAgenda/sandbox.yaml` and `sandboxes/SandboxAgenda/sandbox_agenda.yaml`. Do not paste the rendered HTML from GitHub, as it will break parsing.
 
+For CyberRangeCZ/KYPO pools, follow this quick checklist when supplying the Sandbox Definition:
+
+1. Open `sandboxes/SandboxAgenda/sandbox.yaml` (or `sandboxes/SandboxAgenda/sandbox_agenda.yaml`) on GitHub.
+2. Click **Raw** and copy that URL (or use the cloned local file path directly).
+3. Paste or upload the raw URL/file into the Sandbox Definition form—**avoid** the rendered HTML page URL.
+4. Re-run `kypo training validate training.yaml` before uploading to catch formatting errors early.
+
 1. **Validate** the training specification:
    ```bash
    kypo training validate training.yaml
