@@ -13,29 +13,47 @@ Trainees should familiarize themselves with fundamental concepts in network secu
 
 ## Registration
 
-Trainees are invited and registered through the training platform CLI in
-`subcase_1b/training_platform/cli.py`. The script contacts the Open edX
-service via `open_edx_client.py` to create course entries and confirm the
-enrollment. Instructors typically bootstrap the platform with
-`subcase_1b/scripts/training_platform_start.sh`, which starts the API that
-handles these enrollment requests.
+Instructors enroll trainees in the RandomSec LMS and prepare the Subcase 1c
+stack before invitations are sent. The SOC baseline is brought online with
+`subcase_1c/scripts/start_soc_services.sh`, which launches BIPS, NG‑SIEM,
+NG‑SOAR, CICMS, Decide, and Act while masking sensitive values such as
+`MISP_API_KEY`. Threat intelligence ingestion is activated through
+`subcase_1c/scripts/start_cti_component.sh`, ensuring MISP and the
+`fetch-cti-feed` service are available when trainees join the course. These
+steps make NG‑SIEM dashboards (`http://localhost:5602`) and MISP
+(`https://localhost:8443`) ready for use before learners begin the lab.
 
 ## Lab run
 
-Once enrolled, trainees launch the hands‑on lab in the KYPO cyber range.
-The environment is provisioned using `subcase_1b/scripts/cyber_range_start.sh`
-and individualized scans can be executed with
-`subcase_1b/scripts/trainee_start.sh --target <ip>`. Scenario specifics are
-described in `subcase_1b/scenario.yml` and the corresponding topology file
-`sandboxes/topology_subcase_1b.yaml`.
+After enrollment, trainees deploy the Subcase 1c lab and exercise NG‑SOC
+components directly. The SOC and CTI services remain running from the
+registration phase; learners then:
+
+1. Start the C2 beacon traffic with `subcase_1c/scripts/start_c2_server.sh`.
+2. Run the benign malware generator on the Windows host using
+   `subcase_1c/scripts/benign_malware_simulator.ps1` (or
+   `load_malware_simulation.ps1`), which emits beacons to the configured
+   URL and drops host artifacts.
+3. Inspect telemetry in NG‑SIEM (Kibana), MISP, and BIPS logs under
+   `/var/log/bips/`, confirming that Filebeat/Winlogbeat data flows into the
+   dashboards and that the generated CTI is linked to alerts.
+
+Scenario assets such as CACAO playbooks and IDS models reside under
+`subcase_1c/playbooks/` and `subcase_1c/bips/`, and the smoke test
+(`subcase_1c/scripts/smoke_test.sh`) provides an optional end-to-end
+verification pass.
 
 ## Evaluation
 
-Exercise results are submitted to the new results module implemented in
-`subcase_1b/training_platform/results_service.py`. The service appends
-entries to `results.json` and relays progress back to Open edX using the
-same `open_edx_client.py` helper so that learner dashboards reflect the
-outcome of the lab.
+Assessment focuses on whether trainees drive the malware simulation to
+observable outcomes and correlate them across the NG‑SOC toolchain. Key
+artifacts include exported NG‑SIEM alerts, the correlated MISP event, the
+Act/CICMS case created from the IDS alert, and logs captured by
+`subcase_1c/scripts/generate_post_incident_report.sh`. This script
+aggregates NG‑SIEM, BIPS, and Act logs into `reports/` for instructor
+review. Trainees also submit feedback via `subcase_1c/feedback_form.md`, and
+instructors can validate automated playbook execution with
+`subcase_1c/scripts/validate_playbooks.py` before recording final scores.
 
 ## Trainee Workflow
 
