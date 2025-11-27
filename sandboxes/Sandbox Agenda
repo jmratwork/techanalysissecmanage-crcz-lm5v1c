@@ -1,0 +1,39 @@
+---
+- hosts: infected_host
+  become: yes
+  tasks:
+    - name: Install investigation tools
+      apt:
+        name:
+          - tcpdump
+          - powershell
+        state: present
+
+- hosts: c2_server
+  become: yes
+  tasks:
+    - name: Install C2 framework
+      apt:
+        name: c2-framework
+        state: present
+
+- hosts: soc_server
+  become: yes
+  tasks:
+    - name: Install SOC service
+      apt:
+        name: soc-platform
+        state: present
+    - name: Start SOC service
+      service:
+        name: soc-platform
+        state: started
+        enabled: yes
+
+- hosts: cti_component
+  become: yes
+  tasks:
+    - name: Install CTI platform
+      apt:
+        name: misp
+        state: present
