@@ -21,4 +21,4 @@ training:
         - "@id": "urn:kypo:sandbox:sandbox_agenda"
           "@type": Sandbox
           name: "Agenda Sandbox"
-          definition: sandboxes/SandboxAgenda/site.yml
+          definition: sandboxes/SandboxAgenda/sandbox.yaml
