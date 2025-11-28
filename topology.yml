@@ -1,17 +1,17 @@
 name: "subcase-1c-topology"
 # Topology for Subcase 1c malware analysis and CTI sandbox.
 networks:
-  - id: "urn:kypo:network:subcase_1c:malnet"
-    type: Network
-    name: "malnet"
-    prefix: "10.20.0.0/24"
+  - name: "malnet"
+    cidr: "10.20.0.0/24"
+    accessible_by_user: true
+    hidden: false
 routers:
   - id: "urn:kypo:router:subcase_1c:edge"
     type: Router
     name: "Gateway Router"
     interfaces:
       - name: "eth0"
-        network: "urn:kypo:network:subcase_1c:malnet"
+        network: "malnet"
         ip: "10.20.0.1"
 hosts:
   - id: "urn:kypo:host:subcase_1c:infected_host"
@@ -21,7 +21,7 @@ hosts:
     flavor: "small"
     interfaces:
       - name: "eth0"
-        network: "urn:kypo:network:subcase_1c:malnet"
+        network: "malnet"
         ip: "10.20.0.2"
   - id: "urn:kypo:host:subcase_1c:c2_server"
     type: Host
@@ -30,7 +30,7 @@ hosts:
     flavor: "medium"
     interfaces:
       - name: "eth0"
-        network: "urn:kypo:network:subcase_1c:malnet"
+        network: "malnet"
         ip: "10.20.0.3"
   - id: "urn:kypo:host:subcase_1c:soc_server"
     type: Host
@@ -39,7 +39,7 @@ hosts:
     flavor: "medium"
     interfaces:
       - name: "eth0"
-        network: "urn:kypo:network:subcase_1c:malnet"
+        network: "malnet"
         ip: "10.20.0.4"
   - id: "urn:kypo:host:subcase_1c:cti_component"
     type: Host
@@ -48,5 +48,5 @@ hosts:
     flavor: "medium"
     interfaces:
       - name: "eth0"
-        network: "urn:kypo:network:subcase_1c:malnet"
+        network: "malnet"
         ip: "10.20.0.5"
