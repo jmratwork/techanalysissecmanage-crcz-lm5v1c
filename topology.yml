@@ -1,6 +1,5 @@
 name: "subcase-1c-topology"
-description: >-
-  Topology for Subcase 1c malware analysis and CTI sandbox.
+# Topology for Subcase 1c malware analysis and CTI sandbox.
 networks:
   - id: "urn:kypo:network:subcase_1c:malnet"
     type: Network
