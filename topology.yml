@@ -1,4 +1,4 @@
-name: "Subcase 1c Topology"
+name: "subcase-1c-topology"
 description: >-
   Topology for Subcase 1c malware analysis and CTI sandbox.
 networks:
