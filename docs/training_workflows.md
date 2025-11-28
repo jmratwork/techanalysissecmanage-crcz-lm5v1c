@@ -13,10 +13,16 @@ Trainees should familiarize themselves with fundamental concepts in network secu
 
 ## Registration
 
-Instructors enroll trainees in the RandomSec LMS and prepare the Subcase 1c
-stack before invitations are sent. The SOC baseline is brought online with
-`subcase_1c/scripts/start_soc_services.sh`, which launches BIPS, NG‑SIEM,
-NG‑SOAR, CICMS, Decide, and Act while masking sensitive values such as
+Instructors enroll trainees through the KYPO/CyberRangeCZ portal using the
+`training.yaml` package produced by the `kypo training pack` workflow described
+in the repository root `README.md`. If an LMS is required, import the optional
+Open edX course under `open_edx/course/` (zip it per `open_edx/course/README.md`
+and upload in Studio). The repository does **not** ship a local LMS or REST
+API; progression tracking must be handled by your external platform.
+
+Before invitations go out, bring the Subcase 1c stack online. The SOC baseline
+is started with `subcase_1c/scripts/start_soc_services.sh`, which launches BIPS,
+NG‑SIEM, NG‑SOAR, CICMS, Decide, and Act while masking sensitive values such as
 `MISP_API_KEY`. Threat intelligence ingestion is activated through
 `subcase_1c/scripts/start_cti_component.sh`, ensuring MISP and the
 `fetch-cti-feed` service are available when trainees join the course. These
@@ -55,6 +61,12 @@ review. Trainees also submit feedback via `subcase_1c/feedback_form.md`, and
 instructors can validate automated playbook execution with
 `subcase_1c/scripts/validate_playbooks.py` before recording final scores.
 
+Any grading dashboards or LMS score tracking must be provided by your external
+platform (for example, Open edX after importing `open_edx/course.zip`). There is
+no built-in score listener or `/results` endpoint in this repository; tie-ins to
+KYPO leaderboards or third-party LMS systems must be configured outside the
+repo using their documented interfaces.
+
 ## Trainee Workflow
 
 1. **Scenario Preparation** – Review the scenario description and objectives. Ensure access to required accounts and tools within CyberRangeCZ.
@@ -66,31 +78,20 @@ instructors can validate automated playbook execution with
 1. **Monitoring** – Ensure the Cyber Range and training platform are functioning and collect trainee reports.
 2. **Evaluation** – Review results, correlate findings where necessary, and provide feedback or remediation guidance.
 
-### Evaluation Flow Integration
+### Packaging and External Systems
 
-Both trainees and instructors can submit exercise outcomes through the
-training platform's `POST /results` endpoint. The service stores metrics
-such as completion time and quiz scores in `results.json`, updates local
-course progress, and relays that progress to the Open edX
-`/courseware/` API so that learner dashboards show the latest status.
-
-### API Usage
-
-#### Trainees
-
-- `POST /register` – create a trainee account.
-- `POST /login` – exchange credentials for an authentication token.
-- `POST /progress` / `GET /progress` – submit or fetch course progress.
-- `POST /results` – manually upload lab scores and timing data.
-- `POST /listener` – used by the KYPO range to push automatic score/flag
-  updates to the platform.
-
-#### Instructors
-
-- `POST /courses` – create a new course shell.
-- `POST /invites` – generate invite codes for trainees.
-- `GET /courses` – list existing courses and metadata.
-- `POST /results` – record evaluation outcomes for a trainee.
+- **KYPO/CyberRangeCZ** – Validate and package training with `kypo training
+  validate|pack|publish training.yaml` as outlined in `README.md`. Upload the
+  generated archive to your KYPO portal to provision the scenario.
+- **Open edX (optional)** – If you want LMS content, zip `open_edx/course/` and
+  import it into Open edX Studio. Progress tracking, grading, and any REST
+  endpoints are managed by that external LMS.
+- **NG‑SOC services** – All runtime integrations referenced in this guide are
+  implemented via the scripts under `subcase_1c/scripts/` (for example,
+  `start_soc_services.sh`, `start_cti_component.sh`,
+  `generate_post_incident_report.sh`, `validate_playbooks.py`, and
+  `escalate_incident.sh`). These scripts run against the NG‑SOC components
+  deployed in the CYNET/CyberRangeCZ environment.
 
 ## Subcase 1c: Malware Handling
 
