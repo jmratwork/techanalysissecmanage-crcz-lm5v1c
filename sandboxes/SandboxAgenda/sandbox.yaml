@@ -8,42 +8,35 @@ topology:
   networks:
     - name: "malnet"
       cidr: "10.20.0.0/24"
-      accessible_by_user: true
-      hidden: false
-  routers:
-    - name: "Gateway Router"
+  gateways:
+    - name: "gateway-router"
       interfaces:
-        - name: "eth0"
-          network: "malnet"
-          ip: "10.20.0.1"
-  hosts:
-    - name: "Infected Host"
+        - network: "malnet"
+          ipv4: "10.20.0.1"
+  virtual_machines:
+    - name: "infected_host"
       image: "kali"
       flavor: "small"
       interfaces:
-        - name: "eth0"
-          network: "malnet"
-          ip: "10.20.0.2"
-    - name: "C2 Server"
+        - network: "malnet"
+          ipv4: "10.20.0.2"
+    - name: "c2_server"
       image: "debian-11"
       flavor: "medium"
       interfaces:
-        - name: "eth0"
-          network: "malnet"
-          ip: "10.20.0.3"
-    - name: "SOC Server"
+        - network: "malnet"
+          ipv4: "10.20.0.3"
+    - name: "soc_server"
       image: "debian-11"
       flavor: "medium"
       interfaces:
-        - name: "eth0"
-          network: "malnet"
-          ip: "10.20.0.4"
-    - name: "CTI Component"
+        - network: "malnet"
+          ipv4: "10.20.0.4"
+    - name: "cti_component"
       image: "debian-11"
       flavor: "medium"
       interfaces:
-        - name: "eth0"
-          network: "malnet"
-          ip: "10.20.0.5"
+        - network: "malnet"
+          ipv4: "10.20.0.5"
 provisioning:
   playbook: site.yml
