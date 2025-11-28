@@ -13,7 +13,7 @@ topology:
       interfaces:
         - network: "malnet"
           ipv4: "10.20.0.1"
-  virtual_machines:
+  hosts:
     - name: "infected_host"
       image: "kali"
       flavor: "small"
