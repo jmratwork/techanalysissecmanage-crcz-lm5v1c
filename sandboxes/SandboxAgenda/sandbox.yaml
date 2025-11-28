@@ -15,25 +15,33 @@ topology:
           ipv4_address: "10.20.0.1"
   machines:
     - name: "infected_host"
-      image: "kali"
+      base_box:
+        image: "kali"
+        mgmt_user: "kali"
       flavor: "small"
       interfaces:
         - network: "malnet"
           ipv4_address: "10.20.0.2"
     - name: "c2_server"
-      image: "debian-11"
+      base_box:
+        image: "debian-11"
+        mgmt_user: "debian"
       flavor: "medium"
       interfaces:
         - network: "malnet"
           ipv4_address: "10.20.0.3"
     - name: "soc_server"
-      image: "debian-11"
+      base_box:
+        image: "debian-11"
+        mgmt_user: "debian"
       flavor: "medium"
       interfaces:
         - network: "malnet"
           ipv4_address: "10.20.0.4"
     - name: "cti_component"
-      image: "debian-11"
+      base_box:
+        image: "debian-11"
+        mgmt_user: "debian"
       flavor: "medium"
       interfaces:
         - network: "malnet"
