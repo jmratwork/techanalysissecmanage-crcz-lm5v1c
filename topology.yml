@@ -1,27 +1,27 @@
 ---
 kypo_topology_config_version: 1
 topology:
-  @id: "urn:kypo:topology:subcase_1c"
-  @type: Topology
+  "@id": "urn:kypo:topology:subcase_1c"
+  "@type": Topology
   name: "Subcase 1c Topology"
   description: >-
     Topology for Subcase 1c malware analysis and CTI sandbox.
   networks:
-    - @id: "urn:kypo:network:subcase_1c:malnet"
-      @type: Network
+    - "@id": "urn:kypo:network:subcase_1c:malnet"
+      "@type": Network
       name: "malnet"
       prefix: "10.20.0.0/24"
   routers:
-    - @id: "urn:kypo:router:subcase_1c:edge"
-      @type: Router
+    - "@id": "urn:kypo:router:subcase_1c:edge"
+      "@type": Router
       name: "Gateway Router"
       interfaces:
         - name: "eth0"
           network: "urn:kypo:network:subcase_1c:malnet"
           ip: "10.20.0.1"
   hosts:
-    - @id: "urn:kypo:host:subcase_1c:infected_host"
-      @type: Host
+    - "@id": "urn:kypo:host:subcase_1c:infected_host"
+      "@type": Host
       name: "Infected Host"
       image: "kali"
       flavor: "small"
@@ -29,8 +29,8 @@ topology:
         - name: "eth0"
           network: "urn:kypo:network:subcase_1c:malnet"
           ip: "10.20.0.2"
-    - @id: "urn:kypo:host:subcase_1c:c2_server"
-      @type: Host
+    - "@id": "urn:kypo:host:subcase_1c:c2_server"
+      "@type": Host
       name: "C2 Server"
       image: "debian-11"
       flavor: "medium"
@@ -38,8 +38,8 @@ topology:
         - name: "eth0"
           network: "urn:kypo:network:subcase_1c:malnet"
           ip: "10.20.0.3"
-    - @id: "urn:kypo:host:subcase_1c:soc_server"
-      @type: Host
+    - "@id": "urn:kypo:host:subcase_1c:soc_server"
+      "@type": Host
       name: "SOC Server"
       image: "debian-11"
       flavor: "medium"
@@ -47,8 +47,8 @@ topology:
         - name: "eth0"
           network: "urn:kypo:network:subcase_1c:malnet"
           ip: "10.20.0.4"
-    - @id: "urn:kypo:host:subcase_1c:cti_component"
-      @type: Host
+    - "@id": "urn:kypo:host:subcase_1c:cti_component"
+      "@type": Host
       name: "CTI Component"
       image: "debian-11"
       flavor: "medium"
