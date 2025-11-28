@@ -1,5 +1,5 @@
 ---
-kypo_sandbox_definition_version: 1
+kypo_sandbox_definition_version: 3
 name: "Agenda Sandbox"
 description: >-
   Sandbox for agenda-driven activities using the Subcase 1c malware analysis and
@@ -8,35 +8,35 @@ topology:
   networks:
     - name: "malnet"
       cidr: "10.20.0.0/24"
-  gateways:
+  routers:
     - name: "gateway-router"
       interfaces:
         - network: "malnet"
-          ipv4: "10.20.0.1"
-  virtual_machines:
+          ipv4_address: "10.20.0.1"
+  hosts:
     - name: "infected_host"
       image: "kali"
       flavor: "small"
       interfaces:
         - network: "malnet"
-          ipv4: "10.20.0.2"
+          ipv4_address: "10.20.0.2"
     - name: "c2_server"
       image: "debian-11"
       flavor: "medium"
       interfaces:
         - network: "malnet"
-          ipv4: "10.20.0.3"
+          ipv4_address: "10.20.0.3"
     - name: "soc_server"
       image: "debian-11"
       flavor: "medium"
       interfaces:
         - network: "malnet"
-          ipv4: "10.20.0.4"
+          ipv4_address: "10.20.0.4"
     - name: "cti_component"
       image: "debian-11"
       flavor: "medium"
       interfaces:
         - network: "malnet"
-          ipv4: "10.20.0.5"
+          ipv4_address: "10.20.0.5"
 provisioning:
   playbook: site.yml
