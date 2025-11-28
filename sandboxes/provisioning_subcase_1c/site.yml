@@ -12,28 +12,25 @@
 - hosts: c2_server
   become: yes
   tasks:
-    - name: Install C2 framework
-      apt:
-        name: c2-framework
-        state: present
+    - name: Start bundled C2 server
+      ansible.builtin.script: "{{ playbook_dir }}/../../subcase_1c/scripts/start_c2_server.sh"
 
 - hosts: soc_server
   become: yes
   tasks:
-    - name: Install SOC service
-      apt:
-        name: soc-platform
+    - name: Install Docker engine for SOC services
+      ansible.builtin.apt:
+        name: docker.io
         state: present
-    - name: Start SOC service
-      service:
-        name: soc-platform
-        state: started
-        enabled: yes
+        update_cache: yes
+
+    - name: Launch SOC stack via startup script
+      ansible.builtin.script: "{{ playbook_dir }}/../../subcase_1c/scripts/start_soc_services.sh"
+      environment:
+        MISP_API_KEY: "{{ lookup('env', 'MISP_API_KEY') | default('demo-misp-key', true) }}"
 
 - hosts: cti_component
   become: yes
   tasks:
-    - name: Install CTI platform
-      apt:
-        name: misp
-        state: present
+    - name: Start CTI component services
+      ansible.builtin.script: "{{ playbook_dir }}/../../subcase_1c/scripts/start_cti_component.sh"
