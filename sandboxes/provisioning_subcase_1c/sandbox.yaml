@@ -7,8 +7,8 @@ description: >-
 backend:
   type: terraform
   flavors:
-    # Align with the Terraform backend "medium" flavor to avoid flavor
-    # resolution conflicts when importing to KYPO.
+    # Terraform backend advertises only a "medium" flavor used across the
+    # topology.
     medium:
       vcpus: 2
       ram_mb: 4096

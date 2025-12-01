@@ -7,8 +7,8 @@ description: >-
 backend:
   type: terraform
   flavors:
-    # Terraform backend advertises a "medium" flavor; align the topology to
-    # match the backend rather than referring to an undefined "small" entry.
+    # Terraform backend advertises only a "medium" flavor used across the
+    # topology.
     medium:
       vcpus: 2
       ram_mb: 4096
