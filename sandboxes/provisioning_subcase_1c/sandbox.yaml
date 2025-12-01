@@ -11,6 +11,7 @@ backend:
       vcpus: 1
       ram_mb: 2048
       disk_gb: 20
+    # Default sandbox flavor aligned with KYPO backend expectations.
     medium:
       vcpus: 2
       ram_mb: 4096
