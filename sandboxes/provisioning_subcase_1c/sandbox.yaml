@@ -7,12 +7,12 @@ description: >-
 backend:
   type: terraform
   flavors:
-    # Terraform backend currently exposes only the "small" flavor; topology
-    # nodes use it to avoid flavor resolution conflicts when importing to KYPO.
-    small:
-      vcpus: 1
-      ram_mb: 2048
-      disk_gb: 20
+    # Align with the Terraform backend "medium" flavor to avoid flavor
+    # resolution conflicts when importing to KYPO.
+    medium:
+      vcpus: 2
+      ram_mb: 4096
+      disk_gb: 40
 topology:
   name: "subcase-1c-topology"
   hosts:
@@ -20,28 +20,28 @@ topology:
       base_box:
         image: "kali"
         mgmt_user: "kali"
-      flavor: "small"
+      flavor: "medium"
     - name: "c2-server"
       base_box:
         image: "debian-11"
         mgmt_user: "debian"
-      flavor: "small"
+      flavor: "medium"
     - name: "soc-server"
       base_box:
         image: "debian-11"
         mgmt_user: "debian"
-      flavor: "small"
+      flavor: "medium"
     - name: "cti-component"
       base_box:
         image: "debian-11"
         mgmt_user: "debian"
-      flavor: "small"
+      flavor: "medium"
   routers:
     - name: "gateway-router"
       base_box:
         image: "vyos"
         mgmt_user: "vyos"
-      flavor: "small"
+      flavor: "medium"
   wan:
     name: "wan"
     cidr: "100.100.100.0/24"
