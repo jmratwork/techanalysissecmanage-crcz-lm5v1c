@@ -7,8 +7,8 @@ description: >-
 backend:
   type: terraform
   flavors:
-    # Backend currently exposes only the "small" flavor; all nodes target it
-    # to avoid flavor resolution errors when importing to KYPO/terraform.
+    # Terraform backend currently exposes only the "small" flavor; topology
+    # nodes use it to avoid flavor resolution conflicts when importing to KYPO.
     small:
       vcpus: 1
       ram_mb: 2048
