@@ -13,7 +13,7 @@ network:
   gateway: "10.20.0.1"
 playbook: "ansible/playbook.yml"
 nodes:
-  infected_host:
+  infected-host:
     image: "kali"
     role: "victim"
     ip: "10.20.0.2"
@@ -22,7 +22,7 @@ nodes:
     startup_scripts:
       - path: "scripts/load_malware_simulation.ps1"
         args: "-ExecutionPolicy Bypass"
-  c2_server:
+  c2-server:
     image: "debian-11"
     role: "c2"
     ip: "10.20.0.3"
@@ -31,7 +31,7 @@ nodes:
     startup_scripts:
       - path: "scripts/start_c2_server.sh"
         args: "--config /etc/c2.conf"
-  soc_server:
+  soc-server:
     image: "debian-11"
     role: "soc"
     services:
@@ -45,7 +45,7 @@ nodes:
     startup_scripts:
       - path: "scripts/start_soc_services.sh"
       - path: "scripts/bips_start.sh"
-  cti_component:
+  cti-component:
     image: "debian-11"
     role: "cti"
     services:
@@ -58,9 +58,9 @@ nodes:
       - path: "scripts/start_cti_component.sh"
         args: "--sync"
 links:
-  - [infected_host, c2_server]
-  - [infected_host, soc_server]
-  - [soc_server, cti_component]
+  - [infected-host, c2-server]
+  - [infected-host, soc-server]
+  - [soc-server, cti-component]
 alerts:
   - source: malware_detection
     notify: email

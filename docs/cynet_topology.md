@@ -17,7 +17,7 @@
 ## Subcase 1c
 - Network segment `malnet` (10.20.0.0/24)
 - Virtual machines:
-  - **infected_host** – Kali
-  - **c2_server** – Debian 11
-  - **soc_server** – Debian 11
-  - **cti_component** – Debian 11
+  - **infected-host** – Kali
+  - **c2-server** – Debian 11
+  - **soc-server** – Debian 11
+  - **cti-component** – Debian 11

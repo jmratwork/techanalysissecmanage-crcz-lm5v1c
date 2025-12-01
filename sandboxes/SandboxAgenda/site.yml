@@ -1,5 +1,5 @@
 ---
-- hosts: infected_host
+- hosts: infected-host
   become: yes
   tasks:
     - name: Install investigation tools
@@ -9,7 +9,7 @@
           - powershell
         state: present
 
-- hosts: c2_server
+- hosts: c2-server
   become: yes
   tasks:
     - name: Install C2 framework
@@ -17,7 +17,7 @@
         name: c2-framework
         state: present
 
-- hosts: soc_server
+- hosts: soc-server
   become: yes
   tasks:
     - name: Install SOC service
@@ -30,7 +30,7 @@
         state: started
         enabled: yes
 
-- hosts: cti_component
+- hosts: cti-component
   become: yes
   tasks:
     - name: Install CTI platform
