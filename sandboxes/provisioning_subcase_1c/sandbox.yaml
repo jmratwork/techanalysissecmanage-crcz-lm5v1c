@@ -7,15 +7,12 @@ description: >-
 backend:
   type: terraform
   flavors:
+    # Backend currently exposes only the "small" flavor; all nodes target it
+    # to avoid flavor resolution errors when importing to KYPO/terraform.
     small:
       vcpus: 1
       ram_mb: 2048
       disk_gb: 20
-    # Default sandbox flavor aligned with KYPO backend expectations.
-    medium:
-      vcpus: 2
-      ram_mb: 4096
-      disk_gb: 40
 topology:
   name: "subcase-1c-topology"
   hosts:
@@ -23,28 +20,28 @@ topology:
       base_box:
         image: "kali"
         mgmt_user: "kali"
-      flavor: "medium"
+      flavor: "small"
     - name: "c2-server"
       base_box:
         image: "debian-11"
         mgmt_user: "debian"
-      flavor: "medium"
+      flavor: "small"
     - name: "soc-server"
       base_box:
         image: "debian-11"
         mgmt_user: "debian"
-      flavor: "medium"
+      flavor: "small"
     - name: "cti-component"
       base_box:
         image: "debian-11"
         mgmt_user: "debian"
-      flavor: "medium"
+      flavor: "small"
   routers:
     - name: "gateway-router"
       base_box:
         image: "vyos"
         mgmt_user: "vyos"
-      flavor: "medium"
+      flavor: "small"
   wan:
     name: "wan"
     cidr: "100.100.100.0/24"
