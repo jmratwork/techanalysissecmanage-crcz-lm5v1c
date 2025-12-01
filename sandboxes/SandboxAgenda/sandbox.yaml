@@ -11,7 +11,7 @@ topology:
       base_box:
         image: "kali"
         mgmt_user: "kali"
-      flavor: "small"
+      flavor: "medium"
     - name: "c2-server"
       base_box:
         image: "debian-11"
@@ -32,7 +32,7 @@ topology:
       base_box:
         image: "vyos"
         mgmt_user: "vyos"
-      flavor: "small"
+      flavor: "medium"
   wan:
     name: "wan"
     cidr: "100.100.100.0/24"
