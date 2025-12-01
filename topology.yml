@@ -1,5 +1,17 @@
 name: "subcase-1c-topology"
 
+backend:
+  type: terraform
+  flavors:
+    small:
+      vcpus: 1
+      ram_mb: 2048
+      disk_gb: 20
+    medium:
+      vcpus: 2
+      ram_mb: 4096
+      disk_gb: 40
+
 hosts:
   - name: "infected-host"
     base_box:
