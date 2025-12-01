@@ -1,5 +1,5 @@
 ---
-- hosts: infected_host
+- hosts: infected-host
   become: yes
   tasks:
     - name: Install investigation tools
@@ -9,13 +9,13 @@
           - powershell
         state: present
 
-- hosts: c2_server
+- hosts: c2-server
   become: yes
   tasks:
     - name: Start bundled C2 server
-      ansible.builtin.script: "{{ playbook_dir }}/../../subcase_1c/scripts/start_c2_server.sh"
+      ansible.builtin.script: "{{ playbook_dir }}/../../subcase_1c/scripts/start_c2-server.sh"
 
-- hosts: soc_server
+- hosts: soc-server
   become: yes
   tasks:
     - name: Install Docker engine for SOC services
@@ -29,8 +29,8 @@
       environment:
         MISP_API_KEY: "{{ lookup('env', 'MISP_API_KEY') | default('demo-misp-key', true) }}"
 
-- hosts: cti_component
+- hosts: cti-component
   become: yes
   tasks:
     - name: Start CTI component services
-      ansible.builtin.script: "{{ playbook_dir }}/../../subcase_1c/scripts/start_cti_component.sh"
+      ansible.builtin.script: "{{ playbook_dir }}/../../subcase_1c/scripts/start_cti-component.sh"

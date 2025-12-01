@@ -1,5 +1,5 @@
 ---
-- hosts: soc_server
+- hosts: soc-server
   become: true
   roles:
     - ng_soar
@@ -9,7 +9,7 @@
     - decide
     - act
 
-- hosts: cti_components
+- hosts: cti-components
   become: true
   roles:
     - misp

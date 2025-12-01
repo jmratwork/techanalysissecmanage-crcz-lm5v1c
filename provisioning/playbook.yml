@@ -1,20 +1,20 @@
 ---
-- hosts: infected_host
+- hosts: infected-host
   become: yes
   roles:
-    - infected_host
+    - infected-host
 
-- hosts: c2_server
+- hosts: c2-server
   become: yes
   roles:
-    - c2_server
+    - c2-server
 
-- hosts: soc_server
+- hosts: soc-server
   become: yes
   roles:
-    - soc_server
+    - soc-server
 
-- hosts: cti_component
+- hosts: cti-component
   become: yes
   roles:
-    - cti_component
+    - cti-component
