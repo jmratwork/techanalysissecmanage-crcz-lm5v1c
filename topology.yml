@@ -3,13 +3,13 @@ networks:
   - name: "malnet"
     cidr: "10.20.0.0/24"
 
-gateways:
+routers:
   - name: "gateway-router"
     interfaces:
       - network: "malnet"
         ipv4: "10.20.0.1"
 
-virtual_machines:
+hosts:
   - name: "infected_host"
     image: "kali"
     flavor: "small"
