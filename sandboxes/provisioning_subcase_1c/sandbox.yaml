@@ -4,15 +4,6 @@ name: "Subcase 1c Sandbox"
 description: >-
   Sandbox definition for the Subcase 1c malware analysis and cyber threat
   intelligence lab environment.
-backend:
-  type: terraform
-  flavors:
-    # Terraform backend advertises only a "medium" flavor used across the
-    # topology; the "small" flavor is unsupported and causes import errors.
-    medium:
-      vcpus: 2
-      ram_mb: 4096
-      disk_gb: 40
 topology:
   name: "subcase-1c-topology"
   hosts:

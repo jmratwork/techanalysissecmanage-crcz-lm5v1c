@@ -83,7 +83,7 @@ Subcase 1c models a malware incident response exercise, adding a C2 server, a 
 After adding or modifying sandbox definitions, you can validate and publish the training module using the `kypo` CLI:
 
 - **Import note:** When uploading sandboxes to the platform, use the Raw link (or local copy from this repo) for `sandboxes/SandboxAgenda/sandbox.yaml`. Do not paste the rendered HTML from GitHub, as it will break parsing.
-- **Flavor alignment:** The Terraform backend currently exposes the `medium` flavor; keep `topology.yml` and all sandbox definitions on that flavor to avoid import failures.
+- **Flavor alignment:** The platform backend currently exposes the `medium` flavor; keep `topology.yml` and all sandbox definitions on that flavor to avoid import failures. Backend metadata is now configured on the platform rather than embedded in the sandbox or topology YAML files.
 
 #### Flavor troubleshooting
 
