@@ -82,12 +82,12 @@ Subcase 1c models a malware incident response exercise, adding a C2 server, a 
 
 After adding or modifying sandbox definitions, you can validate and publish the training module using the `kypo` CLI:
 
-- **Import note:** When uploading sandboxes to the platform, use the Raw links (or local copies from this repo) for `sandboxes/SandboxAgenda/sandbox.yaml` and `sandboxes/SandboxAgenda/sandbox_agenda.yaml`. Do not paste the rendered HTML from GitHub, as it will break parsing.
+- **Import note:** When uploading sandboxes to the platform, use the Raw link (or local copy from this repo) for `sandboxes/SandboxAgenda/sandbox.yaml`. Do not paste the rendered HTML from GitHub, as it will break parsing.
 - **Flavor alignment:** The Terraform backend currently exposes the `medium` flavor; keep `topology.yml` and all sandbox definitions on that flavor to avoid import failures.
 
 For CyberRangeCZ/KYPO pools, follow this quick checklist when supplying the Sandbox Definition:
 
-1. Open `sandboxes/SandboxAgenda/sandbox.yaml` (or `sandboxes/SandboxAgenda/sandbox_agenda.yaml`) on GitHub.
+1. Open `sandboxes/SandboxAgenda/sandbox.yaml` on GitHub.
 2. Click **Raw** and copy that URL (or use the cloned local file path directly).
 3. Paste or upload the raw URL/file into the Sandbox Definition form—**avoid** the rendered HTML page URL.
 4. Re-run `kypo training validate training.yaml` before uploading to catch formatting errors early.
