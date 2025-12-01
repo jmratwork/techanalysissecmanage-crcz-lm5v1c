@@ -85,6 +85,12 @@ After adding or modifying sandbox definitions, you can validate and publish the 
 - **Import note:** When uploading sandboxes to the platform, use the Raw link (or local copy from this repo) for `sandboxes/SandboxAgenda/sandbox.yaml`. Do not paste the rendered HTML from GitHub, as it will break parsing.
 - **Flavor alignment:** The Terraform backend currently exposes the `medium` flavor; keep `topology.yml` and all sandbox definitions on that flavor to avoid import failures.
 
+#### Flavor troubleshooting
+
+- **List available flavors:** Use the KYPO CLI to query the Terraform backend (for example, `kypo backend show terraform --output json | jq '.flavors[]'`) or check the KYPO portal Infrastructure/Flavors page to see which flavors the backend currently publishes.
+- **Match definitions to the backend:** Confirm that the flavor declared in `topology.yml` and in every `flavor:` entry under `sandboxes/SandboxAgenda/sandbox.yaml` exists in the backend list. Mismatches will cause sandbox imports to fail.
+- **If `medium` is missing:** Either (a) enable or publish the `medium` flavor on the Terraform backend so it appears in the list, or (b) change all flavor references in both `topology.yml` and the sandbox YAML to a flavor that is present (e.g., `small` or `large`) before running `kypo training validate` and import.
+
 For CyberRangeCZ/KYPO pools, follow this quick checklist when supplying the Sandbox Definition:
 
 1. Open `sandboxes/SandboxAgenda/sandbox.yaml` on GitHub.
