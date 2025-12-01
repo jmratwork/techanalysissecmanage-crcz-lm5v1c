@@ -4,6 +4,17 @@ name: "Sandbox Agenda"
 description: >-
   Definition file pairing the agenda-specific sandbox with its topology and
   provisioning playbook.
+backend:
+  type: terraform
+  flavors:
+    small:
+      vcpus: 1
+      ram_mb: 2048
+      disk_gb: 20
+    medium:
+      vcpus: 2
+      ram_mb: 4096
+      disk_gb: 40
 topology:
   name: "sandbox-agenda-topology"
   hosts:
