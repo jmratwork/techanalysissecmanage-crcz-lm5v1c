@@ -7,12 +7,17 @@ description: >-
 backend:
   type: terraform
   flavors:
-    # Backend currently exposes only the "small" flavor; all nodes target it
-    # to avoid flavor resolution errors when importing to KYPO/terraform.
+    # Backend exposes the flavors available in the Terraform provider. Define
+    # both "small" and "medium" to avoid flavor resolution errors when
+    # importing to KYPO/terraform.
     small:
       vcpus: 1
       ram_mb: 2048
       disk_gb: 20
+    medium:
+      vcpus: 2
+      ram_mb: 4096
+      disk_gb: 40
 topology:
   name: "sandbox-agenda-topology"
   hosts:
