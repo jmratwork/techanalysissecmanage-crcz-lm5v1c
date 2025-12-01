@@ -4,6 +4,17 @@ name: "Agenda Sandbox"
 description: >-
   Sandbox for agenda-driven activities using the Subcase 1c malware analysis and
   cyber threat intelligence environment.
+backend:
+  type: terraform
+  flavors:
+    small:
+      vcpus: 1
+      ram_mb: 2048
+      disk_gb: 20
+    medium:
+      vcpus: 2
+      ram_mb: 4096
+      disk_gb: 40
 topology:
   name: "sandbox-agenda-topology"
   hosts:
