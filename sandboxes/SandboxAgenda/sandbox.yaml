@@ -8,7 +8,7 @@ backend:
   type: terraform
   flavors:
     # Terraform backend advertises only a "medium" flavor used across the
-    # topology.
+    # topology; the "small" flavor is unsupported and causes import errors.
     medium:
       vcpus: 2
       ram_mb: 4096
