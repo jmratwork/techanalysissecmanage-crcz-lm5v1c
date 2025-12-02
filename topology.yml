@@ -4,7 +4,7 @@ hosts:
   - name: "infected-host"
     base_box:
       image: "kali"
-      mgmt_user: "kali"
+      mgmt_user: "debian"
     flavor: "medium"
   - name: "c2-server"
     base_box:
