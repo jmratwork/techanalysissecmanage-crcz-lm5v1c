@@ -23,7 +23,7 @@ nodes:
       - path: "scripts/load_malware_simulation.ps1"
         args: "-ExecutionPolicy Bypass"
   c2-server:
-    image: "debian-12"
+    image: "ubuntu-22.04"
     role: "c2"
     ip: "10.20.0.3"
     subnet: "10.20.0.0/24"
@@ -32,7 +32,7 @@ nodes:
       - path: "scripts/start_c2_server.sh"
         args: "--config /etc/c2.conf"
   soc-server:
-    image: "debian-12"
+    image: "ubuntu-22.04"
     role: "soc"
     services:
       - "NG-SOAR"
@@ -46,7 +46,7 @@ nodes:
       - path: "scripts/start_soc_services.sh"
       - path: "scripts/bips_start.sh"
   cti-component:
-    image: "debian-12"
+    image: "ubuntu-22.04"
     role: "cti"
     services:
       - "MISP"
