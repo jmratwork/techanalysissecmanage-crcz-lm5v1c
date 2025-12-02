@@ -10,10 +10,11 @@ Simulate benign malware activity and integrate threat intelligence feeds to exer
 This subcase is **hands-on**. Analysts can inspect outputs in the NG-SIEM dashboards at `http://localhost:5602`, review MISP entries at `https://localhost:8443`, and examine raw logs under `/var/log/bips/` and the Act service log directory.
 
 ## Node Roles
-- **infected-host** – Windows victim that runs the benign malware simulator
-- **c2-server** – Command-and-control server for beaconing traffic
-- **soc-server** – Hosts NG-SOAR platform services
-- **cti-component** – Runs MISP and feeds threat intelligence to the SOC
+- **infected-host** – Windows victim that runs the benign malware simulator. Provisioned from the `kali` image with the `debian` management user.
+- **c2-server** – Command-and-control server for beaconing traffic. Provisioned from the `ubuntu-noble-x86_64` image with the `ubuntu` management user.
+- **soc-server** – Hosts NG-SOAR platform services. Provisioned from the `ubuntu-noble-x86_64` image with the `ubuntu` management user.
+- **cti-component** – Runs MISP and feeds threat intelligence to the SOC. Provisioned from the `ubuntu-noble-x86_64` image with the `ubuntu` management user.
+- **gateway-router** – Connects the lab network to the WAN. Provisioned from the `ubuntu-noble-x86_64` image with the `ubuntu` management user.
 
 ## Required NG-SOC Components
 - BIPS
