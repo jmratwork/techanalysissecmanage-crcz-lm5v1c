@@ -5,29 +5,29 @@ hosts:
     base_box:
       image: "kali"
       mgmt_user: "debian"
-    flavor: "medium"
+    flavor: "standard.medium"
   - name: "c2-server"
     base_box:
       image: "debian-11"
       mgmt_user: "debian"
-    flavor: "medium"
+    flavor: "standard.medium"
   - name: "soc-server"
     base_box:
       image: "debian-11"
       mgmt_user: "debian"
-    flavor: "medium"
+    flavor: "standard.medium"
   - name: "cti-component"
     base_box:
       image: "debian-11"
       mgmt_user: "debian"
-    flavor: "medium"
+    flavor: "standard.medium"
 
 routers:
   - name: "gateway-router"
     base_box:
       image: "vyos"
       mgmt_user: "vyos"
-    flavor: "medium"
+    flavor: "standard.medium"
 
 wan:
   name: "wan"
