@@ -25,8 +25,8 @@ hosts:
 routers:
   - name: "gateway-router"
     base_box:
-      image: "vyos"
-      mgmt_user: "vyos"
+      image: "debian-11"
+      mgmt_user: "debian"
     flavor: "standard.medium"
 
 wan:
