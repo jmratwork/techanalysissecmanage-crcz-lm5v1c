@@ -14,23 +14,23 @@ topology:
       flavor: "standard.medium"
     - name: "c2-server"
       base_box:
-        image: "ubuntu-22.04"
+        image: "ubuntu-noble-x86_64"
         mgmt_user: "ubuntu"
       flavor: "standard.medium"
     - name: "soc-server"
       base_box:
-        image: "ubuntu-22.04"
+        image: "ubuntu-noble-x86_64"
         mgmt_user: "ubuntu"
       flavor: "standard.medium"
     - name: "cti-component"
       base_box:
-        image: "ubuntu-22.04"
+        image: "ubuntu-noble-x86_64"
         mgmt_user: "ubuntu"
       flavor: "standard.medium"
   routers:
     - name: "gateway-router"
       base_box:
-        image: "ubuntu-22.04"
+        image: "ubuntu-noble-x86_64"
         mgmt_user: "ubuntu"
       flavor: "standard.medium"
   wan:
