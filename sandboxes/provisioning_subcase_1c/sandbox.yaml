@@ -11,28 +11,28 @@ topology:
       base_box:
         image: "kali"
         mgmt_user: "debian"
-      flavor: "medium"
+      flavor: "standard.medium"
     - name: "c2-server"
       base_box:
         image: "debian-12"
         mgmt_user: "debian"
-      flavor: "medium"
+      flavor: "standard.medium"
     - name: "soc-server"
       base_box:
         image: "debian-12"
         mgmt_user: "debian"
-      flavor: "medium"
+      flavor: "standard.medium"
     - name: "cti-component"
       base_box:
         image: "debian-12"
         mgmt_user: "debian"
-      flavor: "medium"
+      flavor: "standard.medium"
   routers:
     - name: "gateway-router"
       base_box:
         image: "ubuntu-22.04"
         mgmt_user: "ubuntu"
-      flavor: "medium"
+      flavor: "standard.medium"
   wan:
     name: "wan"
     cidr: "100.100.100.0/24"
