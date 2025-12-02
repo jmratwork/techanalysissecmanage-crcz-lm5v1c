@@ -27,8 +27,8 @@ For a cross-reference of tools, versions, and documentation, see the [NG-SOC com
 
 ## Workflow
 1. **Service initialization** – The instructor provisions the exercise inside the RandomSec LMS and launches NG-SOAR services with [scripts/start_soc_services.sh](scripts/start_soc_services.sh).
-2. **CTI ingestion** – The trainee activates the CTI component using [scripts/start_cti-component.sh](scripts/start_cti-component.sh) so threat intelligence flows into the SOC.
-3. **SOC analysis** – Acting as a SOC analyst, the trainee investigates alerts produced by [scripts/start_c2-server.sh](scripts/start_c2-server.sh) and [scripts/benign_malware_simulator.ps1](scripts/benign_malware_simulator.ps1), documenting findings in the platform.
+2. **CTI ingestion** – The trainee activates the CTI component using [scripts/start_cti_component.sh](scripts/start_cti_component.sh) so threat intelligence flows into the SOC.
+3. **SOC analysis** – Acting as a SOC analyst, the trainee investigates alerts produced by [scripts/start_c2_server.sh](scripts/start_c2_server.sh) and [scripts/benign_malware_simulator.ps1](scripts/benign_malware_simulator.ps1), documenting findings in the platform.
 4. **Automated mitigation** – NG-SIEM and BIPS forward events to the Decide service, which recommends responses consumed by the Act orchestrator.
 5. **Instructor feedback** – Results and lessons learned are submitted back through the RandomSec LMS where instructors review the analysis and provide guidance.
 
@@ -45,11 +45,11 @@ For a cross-reference of tools, versions, and documentation, see the [NG-SOC com
    This script uploads CACAO playbooks from `subcase_1c/playbooks/` to ROASTER and registers them with SOARCA. It runs automatically when starting SOC services but can be re-executed after modifying playbooks.
 3. **Start the CTI component**
    ```bash
-   sudo subcase_1c/scripts/start_cti-component.sh
+   sudo subcase_1c/scripts/start_cti_component.sh
    ```
 4. **Launch the C2 server**
    ```bash
-   sudo subcase_1c/scripts/start_c2-server.sh
+   sudo subcase_1c/scripts/start_c2_server.sh
    ```
 5. **Run the Windows malware simulator**
    ```powershell
