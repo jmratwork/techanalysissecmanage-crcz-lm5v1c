@@ -46,16 +46,16 @@ topology:
   net_mappings:
     - host: "infected-host"
       network: "malnet"
-      ip: "10.20.0.2"
+      ip: "10.20.0.10"
     - host: "c2-server"
       network: "malnet"
-      ip: "10.20.0.3"
+      ip: "10.20.0.11"
     - host: "soc-server"
       network: "malnet"
-      ip: "10.20.0.4"
+      ip: "10.20.0.12"
     - host: "cti-component"
       network: "malnet"
-      ip: "10.20.0.5"
+      ip: "10.20.0.13"
   groups: []
 provisioning:
   playbook: site.yml

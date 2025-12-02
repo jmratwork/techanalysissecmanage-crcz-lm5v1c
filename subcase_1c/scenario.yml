@@ -16,7 +16,7 @@ nodes:
   infected-host:
     image: "kali"
     role: "victim"
-    ip: "10.20.0.2"
+    ip: "10.20.0.10"
     subnet: "10.20.0.0/24"
     gateway: "10.20.0.1"
     startup_scripts:
@@ -25,7 +25,7 @@ nodes:
   c2-server:
     image: "ubuntu-noble-x86_64"
     role: "c2"
-    ip: "10.20.0.3"
+    ip: "10.20.0.11"
     subnet: "10.20.0.0/24"
     gateway: "10.20.0.1"
     startup_scripts:
@@ -39,7 +39,7 @@ nodes:
       - "NG-SIEM"
       - "BIPS"
       - "CICMS"
-    ip: "10.20.0.4"
+    ip: "10.20.0.12"
     subnet: "10.20.0.0/24"
     gateway: "10.20.0.1"
     startup_scripts:
@@ -51,7 +51,7 @@ nodes:
     services:
       - "MISP"
       - "NG-SIEM"
-    ip: "10.20.0.5"
+    ip: "10.20.0.13"
     subnet: "10.20.0.0/24"
     gateway: "10.20.0.1"
     startup_scripts:
