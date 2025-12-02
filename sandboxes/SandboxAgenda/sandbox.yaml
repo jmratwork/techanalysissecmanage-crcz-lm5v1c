@@ -30,8 +30,8 @@ topology:
   routers:
     - name: "gateway-router"
       base_box:
-        image: "debian-12"
-        mgmt_user: "debian"
+        image: "ubuntu-22.04"
+        mgmt_user: "ubuntu"
       flavor: "medium"
   wan:
     name: "wan"
