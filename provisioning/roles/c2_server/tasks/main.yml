@@ -1,5 +1,39 @@
 ---
-- name: Install C2 framework
+- name: Install C2 server dependencies
   apt:
-    name: c2-framework
+    name:
+      - python3
+      - coreutils
     state: present
+    update_cache: true
+
+- name: Create C2 server directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - /opt/c2_server
+    - /var/log/c2_server
+
+- name: Deploy C2 server script
+  copy:
+    src: c2_server.py
+    dest: /opt/c2_server/c2_server.py
+    mode: "0755"
+  notify: Restart C2 server
+
+- name: Install C2 server systemd unit
+  template:
+    src: c2_server.service.j2
+    dest: /etc/systemd/system/c2_server.service
+    mode: "0644"
+  notify:
+    - Reload systemd
+    - Restart C2 server
+
+- name: Enable and start C2 server
+  systemd:
+    name: c2_server.service
+    enabled: true
+    state: started
