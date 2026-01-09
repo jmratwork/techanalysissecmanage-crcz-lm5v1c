@@ -1,0 +1,15 @@
+[Unit]
+Description=Simple C2 Server
+After=network.target
+
+[Service]
+Type=simple
+Environment="C2_BIND_IP={{ c2_bind_ip }}" "C2_PORT={{ c2_port }}"
+ExecStart=/usr/bin/python3 /opt/c2_server/c2_server.py
+Restart=on-failure
+StandardOutput=append:/var/log/c2_server/c2_server.log
+StandardError=append:/var/log/c2_server/c2_server.log
+ExecStartPre=/bin/mkdir -p /var/log/c2_server
+
+[Install]
+WantedBy=multi-user.target

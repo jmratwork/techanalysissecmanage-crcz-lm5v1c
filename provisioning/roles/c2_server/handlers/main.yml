@@ -1,0 +1,9 @@
+---
+- name: Reload systemd
+  systemd:
+    daemon_reload: true
+
+- name: Restart C2 server
+  systemd:
+    name: c2_server.service
+    state: restarted
